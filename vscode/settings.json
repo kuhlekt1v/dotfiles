@@ -1,0 +1,227 @@
+{
+  // Window.
+  "window.commandCenter": false,
+
+  // Editor default settings.
+  "editor.fontFamily": "\"Operator Mono Lig\",'CourierNew',monospace",
+  "editor.minimap.enabled": false,
+  "editor.fontLigatures": true,
+  "editor.tabCompletion": "on",
+  "editor.formatOnSave": true,
+  "editor.fontSize": 17,
+  "editor.tabSize": 2,
+  "explorer.compactFolders": false,
+  "explorer.confirmDelete": false,
+
+  // Color & theme.
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorTheme": "Dark++ Italic",
+  "workbench.startupEditor": "none",
+  "workbench.editor.showTabs": "single",
+  "workbench.layoutControl.enabled": false,
+
+  // Terminal settings.
+  "terminal.integrated.defaultProfile.windows": "GitBash",
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.fontWeight": "normal",
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.cursorWidth": 2,
+
+  // Language specific settings.
+  "emmet.triggerExpansionOnTab": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "[csharp]": {
+    "editor.tabSize": 4,
+    "editor.maxTokenizationLineLength": 2500
+  },
+
+  "[python]": {
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true
+  },
+
+  // Additional color customization.
+  // Primarily for Angular & modified for Dark++ theme.
+  "vscode-angular-html.colorCustomizations": true,
+  "vscode-angular-html.angularAnimationTriggerPrefix": "#D16969",
+  "vscode-angular-html.angularBindingAttributeDelimiter": "#D16969",
+  "vscode-angular-html.angularExpression": "#D16969",
+  "vscode-angular-html.angularPrefixedAttributesRefPrefix": "#D16969",
+  "vscode-angular-html.angularSyntaxSugarAttributesPrefix": "#D16969",
+  "vscode-angular-html.angularTemplateVariablePrefix": "#D16969",
+  "vscode-angular-html.dtdDoctypeQuantifier": "#D16969",
+  "vscode-angular-html.xmlAttributeNamespaceDivider": "#D16969",
+  "vscode-angular-html.xmlTagNamespaceDivider": "#D16969",
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "meta.ng-binding.event.html",
+        "settings": {
+          "foreground": "#FFD54F"
+        }
+      },
+      {
+        "scope": "html-template.ng.interpolation.begin",
+        "settings": {
+          "foreground": "#D16969"
+        }
+      },
+      {
+        "scope": "html-template.ng.interpolation.end",
+        "settings": {
+          "foreground": "#D16969"
+        }
+      },
+      {
+        "scope": "html-template.ng.attributes.animationtrigger.prefix",
+        "settings": {
+          "foreground": "#D16969"
+        }
+      },
+      {
+        "scope": "punctuation.definition.ng-binding-name.begin.html",
+        "settings": {
+          "foreground": "#D16969"
+        }
+      },
+      {
+        "scope": "punctuation.definition.ng-binding-name.end.html",
+        "settings": {
+          "foreground": "#D16969"
+        }
+      },
+      {
+        "scope": "html-template.ng.attributes.prefix.ref",
+        "settings": {
+          "foreground": "#D16969"
+        }
+      },
+      {
+        "scope": "html-template.ng.attributes.prefix.sugar",
+        "settings": {
+          "foreground": "#D16969"
+        }
+      },
+      {
+        "scope": "html-template.ng.attributes.template.prefix",
+        "settings": {
+          "foreground": "#D16969"
+        }
+      },
+      {
+        "scope": "html-template.ng.tag.colon",
+        "settings": {
+          "foreground": "#D16969"
+        }
+      },
+      {
+        "scope": "html-template.ng.attributes.colon",
+        "settings": {
+          "foreground": "#D16969"
+        }
+      },
+      {
+        "scope": "html-template.ng.occurrence.dtd",
+        "settings": {
+          "foreground": "#D16969"
+        }
+      }
+    ]
+  },
+  "vim.easymotion": true,
+  "vim.useSystemClipboard": true,
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<space>"],
+      "commands": ["vspacecode.space"]
+    },
+    {
+      "before": [","],
+      "commands": [
+        "vspacecode.space",
+        {
+          "command": "whichkey.triggerKey",
+          "args": "m"
+        }
+      ]
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<space>"],
+      "commands": ["vspacecode.space"]
+    },
+    {
+      "before": [","],
+      "commands": [
+        "vspacecode.space",
+        {
+          "command": "whichkey.triggerKey",
+          "args": "m"
+        }
+      ]
+    },
+    {
+      "before": [">"],
+      "commands": ["editor.action.indentLines"]
+    },
+    {
+      "before": ["<"],
+      "commands": ["editor.action.outdentLines"]
+    }
+  ],
+
+  // VSpaceCode Angular additions.
+  "vspacecode.bindingOverrides": [
+    {
+      "keys": "a",
+      "name": "Angular",
+      "type": "bindings",
+      "bindings": [
+        {
+          "key": "c",
+          "name": "GoToComponent",
+          "type": "command",
+          "command": "angular.goToComponentWithTemplateFile"
+        },
+        {
+          "key": "t",
+          "name": "GoToTemplate",
+          "type": "command",
+          "command": "angular.goToTemplateForComponent"
+        },
+        {
+          "key": "s",
+          "name": "GoToStyle",
+          "type": "command",
+          "command": "extension.switchStyle"
+        }
+      ]
+    }
+  ],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "workbench.settings.applyToAllProfiles": ["editor.defaultFormatter"]
+}
