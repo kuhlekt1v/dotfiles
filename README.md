@@ -23,3 +23,4 @@ Copy & paste [settings](https://raw.githubusercontent.com/kuhlekt1v/dotfiles/mai
 ## [Spacemacs](https://github.com/kuhlekt1v/dotfiles/tree/main/spacemacs)
 
 #### Update .spacemacs config
+Copy & paste [.spacemacs](https://raw.githubusercontent.com/kuhlekt1v/dotfiles/main/spacemacs/.spacemacs?token=GHSAT0AAAAAACJGL2DEIKNV22VFYKWRZDJOZOHLQMQ) to `~/.spacemacs`
