@@ -2,7 +2,7 @@
 
 # execute command
 # -------------------
-# curl -s https://raw.githubusercontent.com/kuhlekt1v/dotfiles/main/vscode/install-extensions.sh?token=GHSAT0AAAAAACOB3DXN73CTQ3G3NLEDBYMQZOIDTPA | /bin/bash
+# curl -s -H "Authorization: token <generate-gh-PAT>" https://raw.githubusercontent.com/kuhlekt1v/dotfiles/main/vscode/install-extensions.sh | /bin/bash
 
 # Visual Studio Code :: Package list
 pkglist=(
