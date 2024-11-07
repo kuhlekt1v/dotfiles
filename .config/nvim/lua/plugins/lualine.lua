@@ -3,6 +3,7 @@ return {
 	config = function()
 		require("lualine").setup({
 			options = {
+				-- Dracula theme used with Catppuccin themes.
 				theme = "dracula",
 			},
 		})
