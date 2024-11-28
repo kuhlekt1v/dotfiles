@@ -15,8 +15,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	-- main color scheme
-
 	spec = {
 		{ "LazyVim/LazyVim", import = "lazyvim.plugins" },
 		-- import any extras modules here
@@ -41,8 +39,8 @@ require("lazy").setup({
 		version = false,
 	},
 	checker = {
-		enabled = true, -- automatically check for plugin updates
-		notify = false, -- notify on update
+		enabled = true,
+		notify = false,
 	},
 	performance = {
 		rtp = {
@@ -56,5 +54,3 @@ require("lazy").setup({
 		},
 	},
 })
-
---vim.cmd("highlight Visual ctermbg=0 guibg=#6441A5")

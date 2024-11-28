@@ -1,10 +1,20 @@
+-- return {
+-- 	{ "catppuccin/nvim", name = "catppuccin" },
+-- 	{
+-- 		"LazyVim/LazyVim",
+-- 		opts = {
+-- 			colorscheme = "catppuccin-mocha",
+-- 			priority = 1000,
+-- 		},
+-- 	},
+-- }
 return {
-	{ "catppuccin/nvim", name = "catppuccin" },
+	{ "EdenEast/nightfox.nvim" },
 	{
 		"LazyVim/LazyVim",
 		opts = {
-			-- colorscheme = "catppuccin-macchiato",
-			colorscheme = "catppuccin-mocha",
+			priority = 1000,
+			colorscheme = "carbonfox",
 		},
 	},
 }

@@ -16,3 +16,5 @@ keymap.set("n", "<leader>ccq", function()
 		require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
 	end
 end, { desc = "CopilotChat - Quick chat" })
+
+keymap.set("n", "<leader>dd", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Toggles local troubleshoot" })
