@@ -18,3 +18,10 @@ keymap.set("n", "<leader>ccq", function()
 end, { desc = "CopilotChat - Quick chat" })
 
 keymap.set("n", "<leader>dd", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Toggles local troubleshoot" })
+
+local wk = require("which-key")
+
+wk.add({
+	{ "<leader>t", group = "Todo", icon = { icon = "" } }, -- group for Todo
+	{ "<leader>td", "<cmd>Dooing<cr>", desc = " Toggle", mode = "n" },
+})
