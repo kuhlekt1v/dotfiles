@@ -62,6 +62,9 @@
     "editor.formatOnSave": true,
     "editor.formatOnType": true
   },
+  "[java]": {
+    "editor.defaultFormatter": "redhat.java"
+  },
 
   // Additional color customization.
   // Primarily for Angular & modified for Dark++ theme.
