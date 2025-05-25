@@ -1,26 +1,64 @@
 # dotfiles
 
-Personal configuration files for various tools.
+Personal configuration files for various development tools including fonts, themes, keybindings, terminal settings, and editor preferences.
 
-## [Visual Studio Code](https://github.com/kuhlekt1v/dotfiles/tree/main/vscode)
+## Details
 
-#### Install extensions
-
-Execute the following command:
+<details>
+<summary><strong>VS Code</strong></summary>
+<br>
+1. Execute the following command:
 
 ```console
 curl -s https://raw.githubusercontent.com/kuhlekt1v/dotfiles/main/vscode/install-extensions.sh?token=GHSAT0AAAAAACJGL2DEVDOLP5JLQNB5QV4YZOHKXDA | /bin/bash
 ```
 
-#### Update keybindings
+2. Copy & paste [keybindings](https://raw.githubusercontent.com/kuhlekt1v/dotfiles/main/vscode/keybindings.json) into VS Code `keybindings.json`
 
-Copy & paste [keybindings](https://raw.githubusercontent.com/kuhlekt1v/dotfiles/main/vscode/keybindings.json?token=GHSAT0AAAAAACJGL2DFXABY5CFLZAJGPGIKZOHKR6A) to `~/.config/Code/User/keybindings.json`
+3. Copy & paste [settings](https://raw.githubusercontent.com/kuhlekt1v/dotfiles/main/vscode/settings.json) into VS Code `settings.json`
 
-#### Update settings
+</details>
 
-Copy & paste [settings](https://raw.githubusercontent.com/kuhlekt1v/dotfiles/main/vscode/settings.json?token=GHSAT0AAAAAACJGL2DFLPLBO2PRZ23BRGZWZOHKWSQ) to `~/.config/Code/User/settings.json`
+<details>
+<summary><strong>Wezterm</strong></summary>
+<br>
 
-## [Spacemacs](https://github.com/kuhlekt1v/dotfiles/tree/main/spacemacs)
+1. Copy & paste [.wezterm.lua](https://raw.githubusercontent.com/kuhlekt1v/dotfiles/main/terminal/wezterm-config/.wezterm.lua) into `~/`
+2. Copy & paste [wezterm/](https://raw.githubusercontent.com/kuhlekt1v/dotfiles/main/terminal/wezterm-config/wezterm) into `~/.config`
 
-#### Update .spacemacs config
-Copy & paste [.spacemacs](https://raw.githubusercontent.com/kuhlekt1v/dotfiles/main/spacemacs/.spacemacs?token=GHSAT0AAAAAACJGL2DEIKNV22VFYKWRZDJOZOHLQMQ) to `~/.spacemacs`
+</details>
+
+<details>
+<summary><strong>LazyVim</strong></summary>
+<br>
+
+1. Copy & paste [nvim/](https://raw.githubusercontent.com/kuhlekt1v/dotfiles/main/terminal/nvim) into `~/.config`
+2. (Optional) Add a .luarc.json in your Neovim config folder to improve Lua LSP support:
+
+```json
+{
+  "workspace": {
+    "library": ["/usr/share/nvim/runtime"],
+    "checkThirdParty": false
+  },
+  "diagnostics": {
+    "globals": ["vim"]
+  },
+  "telemetry": {
+    "enable": false
+  }
+}
+```
+
+</details>
+
+</details>
+
+<details> 
+<summary><strong>Zsh + Powerlevel10k</strong></summary> 
+<br>
+
+1. Copy & paste .zshrc into your home directory: `~/.zshrc`.
+2. Install Powerlevel10k (if not already installed):
+   <br>`brew install romkatv/powerlevel10k/powerlevel10k`
+3. Copy & paste .p10k.zsh into your home directory: `~/.p10k.zsh`.

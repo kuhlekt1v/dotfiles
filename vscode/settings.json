@@ -1,33 +1,36 @@
 {
-  // Window.
-  "window.commandCenter": false,
-
-  // Editor default settings.
-  "editor.fontFamily": "\"Operator Mono Lig\",'CourierNew',monospace",
+  // --- EDITOR --- \\
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.inlineSuggest.enabled": false,
+  "editor.stickyScroll.enabled": false,
+  "explorer.compactFolders": false,
+  "explorer.confirmDelete": false,
   "editor.minimap.enabled": false,
+  "window.commandCenter": false,
   "editor.fontLigatures": true,
   "editor.tabCompletion": "on",
   "editor.formatOnSave": true,
   "editor.fontSize": 17,
   "editor.tabSize": 2,
-  "explorer.compactFolders": false,
-  "explorer.confirmDelete": false,
 
-  // Color & theme.
+  // --- THEME --- \\
+  "editor.fontFamily": "\"JetBrainsMono Nerd Font\",'CourierNew',monospace",
+  "workbench.settings.applyToAllProfiles": ["editor.defaultFormatter"],
   "workbench.iconTheme": "material-icon-theme",
-  "workbench.colorTheme": "Dark++ Italic",
-  "workbench.startupEditor": "none",
-  "workbench.editor.showTabs": "single",
+  "workbench.colorTheme": "Jellybeans Theme",
   "workbench.layoutControl.enabled": false,
+  "workbench.editor.showTabs": "single",
+  "workbench.startupEditor": "none",
 
-  // Terminal settings.
-  "terminal.integrated.defaultProfile.windows": "GitBash",
+  // --- TERMINAL --- \\
+  "terminal.integrated.defaultProfile.windows": "zsh",
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.fontWeight": "normal",
   "terminal.integrated.cursorStyle": "line",
   "terminal.integrated.cursorWidth": 2,
+  "terminal.integrated.fontSize": 16,
 
-  // Language specific settings.
+  // --- LANGUAGE --- \\
   "emmet.triggerExpansionOnTab": true,
   "typescript.updateImportsOnFileMove.enabled": "always",
   "javascript.updateImportsOnFileMove.enabled": "always",
@@ -49,113 +52,17 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-
-  "[csharp]": {
-    "editor.tabSize": 4,
-    "editor.maxTokenizationLineLength": 2500
-  },
-
-  "[python]": {
-    "files.trimFinalNewlines": true,
-    "files.trimTrailingWhitespace": true,
-    "files.insertFinalNewline": true,
-    "editor.formatOnSave": true,
-    "editor.formatOnType": true
-  },
   "[java]": {
     "editor.defaultFormatter": "redhat.java"
   },
-
-  // Additional color customization.
-  // Primarily for Angular & modified for Dark++ theme.
-  "vscode-angular-html.colorCustomizations": true,
-  "vscode-angular-html.angularAnimationTriggerPrefix": "#D16969",
-  "vscode-angular-html.angularBindingAttributeDelimiter": "#D16969",
-  "vscode-angular-html.angularExpression": "#D16969",
-  "vscode-angular-html.angularPrefixedAttributesRefPrefix": "#D16969",
-  "vscode-angular-html.angularSyntaxSugarAttributesPrefix": "#D16969",
-  "vscode-angular-html.angularTemplateVariablePrefix": "#D16969",
-  "vscode-angular-html.dtdDoctypeQuantifier": "#D16969",
-  "vscode-angular-html.xmlAttributeNamespaceDivider": "#D16969",
-  "vscode-angular-html.xmlTagNamespaceDivider": "#D16969",
-  "editor.tokenColorCustomizations": {
-    "textMateRules": [
-      {
-        "scope": "meta.ng-binding.event.html",
-        "settings": {
-          "foreground": "#FFD54F"
-        }
-      },
-      {
-        "scope": "html-template.ng.interpolation.begin",
-        "settings": {
-          "foreground": "#D16969"
-        }
-      },
-      {
-        "scope": "html-template.ng.interpolation.end",
-        "settings": {
-          "foreground": "#D16969"
-        }
-      },
-      {
-        "scope": "html-template.ng.attributes.animationtrigger.prefix",
-        "settings": {
-          "foreground": "#D16969"
-        }
-      },
-      {
-        "scope": "punctuation.definition.ng-binding-name.begin.html",
-        "settings": {
-          "foreground": "#D16969"
-        }
-      },
-      {
-        "scope": "punctuation.definition.ng-binding-name.end.html",
-        "settings": {
-          "foreground": "#D16969"
-        }
-      },
-      {
-        "scope": "html-template.ng.attributes.prefix.ref",
-        "settings": {
-          "foreground": "#D16969"
-        }
-      },
-      {
-        "scope": "html-template.ng.attributes.prefix.sugar",
-        "settings": {
-          "foreground": "#D16969"
-        }
-      },
-      {
-        "scope": "html-template.ng.attributes.template.prefix",
-        "settings": {
-          "foreground": "#D16969"
-        }
-      },
-      {
-        "scope": "html-template.ng.tag.colon",
-        "settings": {
-          "foreground": "#D16969"
-        }
-      },
-      {
-        "scope": "html-template.ng.attributes.colon",
-        "settings": {
-          "foreground": "#D16969"
-        }
-      },
-      {
-        "scope": "html-template.ng.occurrence.dtd",
-        "settings": {
-          "foreground": "#D16969"
-        }
-      }
-    ]
+  "[python]": {
+    "editor.tabSize": 4
   },
-  "vim.easymotion": true,
+
+  // --- VIM & VSPACECODE --- \\
+
   "vim.useSystemClipboard": true,
+  "vim.easymotion": true,
   "vim.normalModeKeyBindingsNonRecursive": [
     {
       "before": ["<space>"],
@@ -196,12 +103,13 @@
       "commands": ["editor.action.outdentLines"]
     }
   ],
-
-  // VSpaceCode Angular additions.
   "vspacecode.bindingOverrides": [
+    // --- ADDITIONAL BINDINGS --- \\
     {
       "keys": "a",
       "name": "Angular",
+      "icon": "type-hierarchy-sub",
+      "position": 20,
       "type": "bindings",
       "bindings": [
         {
@@ -223,8 +131,45 @@
           "command": "extension.switchStyle"
         }
       ]
+    },
+    {
+      "keys": "g.l",
+      "name": "LazyGit",
+      "position": 3,
+      "icon": "git-branch",
+      "type": "command",
+      "command": "lazygit.openLazygit"
+    },
+    // --- REMOVED BINDINGS --- \\
+    {
+      "keys": "\"",
+      "position": -1
+    },
+    {
+      "keys": "!",
+      "position": -1
+    },
+    { "keys": ["g", "b"], "position": -1 },
+    { "keys": ["g", "m"], "position": -1 },
+    { "keys": ["g", "s"], "position": -1 },
+    { "keys": ["g", "S"], "position": -1 },
+    { "keys": ["g", "U"], "position": -1 },
+    { "keys": ["g", "f"], "position": -1 },
+    {
+      "keys": "5",
+      "position": -1
+    },
+    {
+      "keys": "6",
+      "position": -1
+    },
+    {
+      "keys": "7",
+      "position": -1
+    },
+    {
+      "keys": "8",
+      "position": -1
     }
-  ],
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "workbench.settings.applyToAllProfiles": ["editor.defaultFormatter"]
+  ]
 }

@@ -36,12 +36,12 @@ local onedark_custom = {
 }
 
 return {
-	{
-		"EdenEast/nightfox.nvim",
-		config = function()
-			require("nightfox").setup() -- Ensure Nightfox is initialized
-		end,
-	},
+	-- {
+	-- 	"EdenEast/nightfox.nvim",
+	-- 	config = function()
+	-- 		require("nightfox").setup() -- Ensure Nightfox is initialized
+	-- 	end,
+	-- },
 	{
 		"nvim-lualine/lualine.nvim",
 		config = function()
@@ -49,7 +49,9 @@ return {
 				options = {
 					-- Dracula theme used with Catppuccin themes.
 					-- theme = "dracula",
-					theme = onedark_custom,
+					-- ondark_custom used with NightFox
+					-- theme = onedark_custom,
+					theme = "iceberg_dark",
 				},
 			})
 		end,

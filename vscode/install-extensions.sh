@@ -6,29 +6,29 @@
 
 # Visual Studio Code :: Package list
 pkglist=(
-igolskyi.vscode-zenburn-plus-theme
-pkief.material-icon-theme
+angular.ng-template
+bierner.markdown-preview-github-styles
 bodil.file-browser
-cometeer.spacemacs
+chaitanyashahare.lazygit
+dbaeumer.vscode-eslint
+denoland.vscode-deno
+dimitarnonov.jellybeans-theme
+dsznajder.es7-react-js-snippets
+esbenp.prettier-vscode
+formulahendry.auto-rename-tag
+ghaschel.vscode-angular-html
+github.copilot
+github.copilot-chat
+infinity1207.angular2-switcher
+jacobdufault.fuzzy-search
+johnpapa.angular2
+mechatroner.rainbow-csv
+ms-vscode.live-server
+pkief.material-icon-theme
+syler.sass-indented
 vscodevim.vim
 vspacecode.vspacecode
 vspacecode.whichkey
-kahole.magit
-jacobdufault.fuzzy-search
-angular.ng-template
-johnpapa.angular2
-ghaschel.vscode-angular-html
-infinity1207.angular2-switcher
-bierner.markdown-preview-github-styles
-dsznajder.es7-react-js-snippets
-formulahendry.auto-close-tag
-formulahendry.auto-rename-tag
-esbenp.prettier-vscode
-dbaeumer.vscode-eslint
-mechatroner.rainbow-csv
-visualstudioexptteam.vscodeintellicode
-syler.sass-indented
-github.copilot
 )
 
 for i in ${pkglist[@]}; do
