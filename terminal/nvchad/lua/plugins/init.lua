@@ -1,5 +1,16 @@
 return {
-
+    { "echasnovski/mini.icons" },
+    {
+        "folke/which-key.nvim",
+        opts = function(_, opts)
+            -- Load NvChad defaults
+            dofile(vim.g.base46_cache .. "whichkey")
+            -- Extend NvChad defaults
+            opts.icons = { group = "+ ", mappings = false }
+            opts.sort = { "alphanum" }
+            return opts
+        end,
+    },
     {
         "nvim-treesitter/nvim-treesitter",
         event = { "BufReadPre", "BufNewFile" },
@@ -7,7 +18,6 @@ return {
             require("configs.treesitter")
         end,
     },
-
     {
         "neovim/nvim-lspconfig",
         event = { "BufReadPre", "BufNewFile" },
@@ -16,7 +26,6 @@ return {
             require("configs.lspconfig")
         end,
     },
-
     {
         "williamboman/mason-lspconfig.nvim",
         event = "VeryLazy",
@@ -105,6 +114,36 @@ return {
         },
         dependencies = {
             "nvim-lua/plenary.nvim",
+        },
+    },
+
+    {
+        "MeanderingProgrammer/render-markdown.nvim",
+        optional = true,
+        opts = {
+            file_types = { "markdown", "copilot-chat" },
+        },
+        ft = { "markdown", "copilot-chat" },
+    },
+    {
+        "hrsh7th/nvim-cmp",
+        dependencies = {
+            {
+                "zbirenbaum/copilot-cmp",
+                config = function()
+                    require("copilot_cmp").setup()
+                end,
+            },
+        },
+        opts = {
+            sources = {
+                { name = "nvim_lsp", group_index = 2 },
+                { name = "copilot", group_index = 2 },
+                { name = "luasnip", group_index = 2 },
+                { name = "buffer", group_index = 2 },
+                { name = "nvim_lua", group_index = 2 },
+                { name = "path", group_index = 2 },
+            },
         },
     },
 }
