@@ -24,16 +24,16 @@ curl -s https://raw.githubusercontent.com/kuhlekt1v/dotfiles/main/vscode/install
 <br>
 
 1. Copy & paste [.wezterm.lua](https://raw.githubusercontent.com/kuhlekt1v/dotfiles/main/terminal/wezterm-config/.wezterm.lua) into `~/`
-2. Copy & paste [wezterm/](https://raw.githubusercontent.com/kuhlekt1v/dotfiles/main/terminal/wezterm-config/wezterm) into `~/.config`
+2. Copy & paste [wezterm/](https://github.com/kuhlekt1v/dotfiles/tree/main/terminal/wezterm-config/wezterm) directory into `~/.config`
 
 </details>
 
 <details>
-<summary><strong>LazyVim</strong></summary>
+<summary><strong>Nvim</strong></summary>
 <br>
 
-1. Copy & paste [nvim/](https://raw.githubusercontent.com/kuhlekt1v/dotfiles/main/terminal/nvim) into `~/.config`
-2. (Optional) Add a .luarc.json in your Neovim config folder to improve Lua LSP support:
+1. Copy your preferred Neovim configuration ([terminal/lazyvim](https://github.com/kuhlekt1v/dotfiles/tree/main/terminal/lazyvim) or [terminal/nvchad](https://github.com/kuhlekt1v/dotfiles/tree/main/terminal/nvchad)) to `~/.config/nvim`
+2. (Optional) When using LazyVim, use the snippet below to create a file, `.luarc.json`, within your nvim config folder to improve Lua LSP support:
 
 ```json
 {
@@ -52,7 +52,6 @@ curl -s https://raw.githubusercontent.com/kuhlekt1v/dotfiles/main/vscode/install
 
 </details>
 
-</details>
 
 <details> 
 <summary><strong>Zsh + Powerlevel10k</strong></summary> 
