@@ -6,10 +6,13 @@ local wk = require("which-key")
 
 wk.add({
     { "<leader><Tab>", group = "tab" },
-    { "<leader>a", group = "ai" },
+    { "<leader>c", group = "AI" },
+    { "<leader>co", group = "Copilot" },
+    { "<leader>cc", group = "Code Companion" },
     { "<leader>b", group = "buffers" },
     { "<leader>d", group = "diagnostics" },
-    { "<leader>e", group = "nvimtree" },
+    { "<leader>e", group = "Focus nvimtree" },
+    { "<leader>E", group = "Toggle nvimtree" },
     { "<leader>f", group = "file" },
     { "<leader>p", group = "lsp" },
     { "<leader>t", group = "telescope" },
@@ -38,6 +41,7 @@ vim.keymap.del("n", "<leader>pt")
 -- vim.keymap.del("n", "<leader>wl")
 -- vim.keymap.del("n", "<leader>wr")
 vim.keymap.del("n", "<leader>rn")
+vim.keymap.del("n", "<leader>e")
 
 -- Basic remaps
 vim.keymap.set("n", "<leader>Q", "<cmd>qa!<CR>", { desc = "Force quit" })
@@ -138,8 +142,11 @@ map("n", "<leader>bx", function()
     require("nvchad.tabufline").close_buffer()
 end, { desc = "close current" })
 
+-- Code Companion
+map("n", "<leader>cca", "<cmd>CodeCompanionActions<cr>", { desc = "CodeCompanion - Actions Palette" })
+
 -- Copilot
-map("n", "<leader>ap", function()
+map("n", "<leader>cop", function()
     require("CopilotChat").select_prompt({
         context = {
             "buffers",
@@ -148,14 +155,14 @@ map("n", "<leader>ap", function()
 end, { desc = "CopilotChat - Prompt actions" })
 
 -- Code related commands
-map("n", "<leader>ae", "<cmd>CopilotChatExplain<cr>", { desc = "CopilotChat - Explain code" })
-map("n", "<leader>at", "<cmd>CopilotChatTests<cr>", { desc = "CopilotChat - Generate tests" })
-map("n", "<leader>ar", "<cmd>CopilotChatReview<cr>", { desc = "CopilotChat - Review code" })
-map("n", "<leader>aR", "<cmd>CopilotChatRefactor<cr>", { desc = "CopilotChat - Refactor code" })
-map("n", "<leader>an", "<cmd>CopilotChatBetterNamings<cr>", { desc = "CopilotChat - Better Naming" })
+map("n", "<leader>coe", "<cmd>CopilotChatExplain<cr>", { desc = "CopilotChat - Explain code" })
+map("n", "<leader>cot", "<cmd>CopilotChatTests<cr>", { desc = "CopilotChat - Generate tests" })
+map("n", "<leader>cor", "<cmd>CopilotChatReview<cr>", { desc = "CopilotChat - Review code" })
+map("n", "<leader>coR", "<cmd>CopilotChatRefactor<cr>", { desc = "CopilotChat - Refactor code" })
+map("n", "<leader>con", "<cmd>CopilotChatBetterNamings<cr>", { desc = "CopilotChat - Better Naming" })
 
 -- Custom input for CopilotChat
-map("n", "<leader>ai", function()
+map("n", "<leader>coi", function()
     local input = vim.fn.input("Ask Copilot: ")
     if input ~= "" then
         vim.cmd("CopilotChat " .. input)
@@ -163,8 +170,13 @@ map("n", "<leader>ai", function()
 end, { desc = "CopilotChat - Ask input" })
 
 -- Generate commit message based on the git diff
-map("n", "<leader>am", "<cmd>CopilotChatCommit<cr>", { desc = "CopilotChat - Generate commit message for all changes" })
-map("n", "<leader>aq", function()
+map(
+    "n",
+    "<leader>com",
+    "<cmd>CopilotChatCommit<cr>",
+    { desc = "CopilotChat - Generate commit message for all changes" }
+)
+map("n", "<leader>coq", function()
     local input = vim.fn.input("Quick Chat: ")
     if input ~= "" then
         require("CopilotChat").ask(input, {
@@ -174,18 +186,34 @@ map("n", "<leader>aq", function()
 end, { desc = "CopilotChat - Quick chat" })
 
 -- Fix the issue with diagnostic
-map("n", "<leader>af", "<cmd>CopilotChatFixError<cr>", { desc = "CopilotChat - Fix Diagnostic" })
+map("n", "<leader>cof", "<cmd>CopilotChatFixError<cr>", { desc = "CopilotChat - Fix Diagnostic" })
 -- Clear buffer and chat history
-map("n", "<leader>al", "<cmd>CopilotChatReset<cr>", { desc = "CopilotChat - Clear buffer and chat history" })
+map("n", "<leader>col", "<cmd>CopilotChatReset<cr>", { desc = "CopilotChat - Clear buffer and chat history" })
 -- Toggle Copilot Chat Vsplit
-map("n", "<leader>av", "<cmd>CopilotChatToggle<cr>", { desc = "CopilotChat - Toggle" })
+map("n", "<leader>cov", "<cmd>CopilotChatToggle<cr>", { desc = "CopilotChat - Toggle" })
 -- Copilot Chat Models
-map("n", "<leader>a?", "<cmd>CopilotChatModels<cr>", { desc = "CopilotChat - Select Models" })
+map("n", "<leader>co?", "<cmd>CopilotChatModels<cr>", { desc = "CopilotChat - Select Models" })
 -- Copilot Chat Agents
-map("n", "<leader>aa", "<cmd>CopilotChatAgents<cr>", { desc = "CopilotChat - Select Agents" })
+map("n", "<leader>coa", "<cmd>CopilotChatAgents<cr>", { desc = "CopilotChat - Select Agents" })
 -- Visual mode mappings
-map("x", "<leader>ap", function()
+map("x", "<leader>cop", function()
     require("CopilotChat").select_prompt()
 end, { desc = "CopilotChat - Prompt actions" })
-map("x", "<leader>av", ":CopilotChatVisual", { desc = "CopilotChat - Open in vertical split" })
-map("x", "<leader>ax", ":CopilotChatInline", { desc = "CopilotChat - Inline chat" })
+map("x", "<leader>cov", ":CopilotChatVisual", { desc = "CopilotChat - Open in vertical split" })
+map("x", "<leader>cox", ":CopilotChatInline", { desc = "CopilotChat - Inline chat" })
+
+-- Toggle nvim-tree
+
+map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "Focus nvim-tree" })
+map("n", "<leader>E", function()
+    local api = require("nvim-tree.api")
+    local view = require("nvim-tree.view")
+
+    if view.is_visible() then
+        api.tree.close()
+        vim.cmd("wincmd p") -- return focus to previous window
+    else
+        api.tree.open()
+        api.tree.focus()
+    end
+end)

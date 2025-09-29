@@ -1,6 +1,17 @@
 return {
     { "echasnovski/mini.icons" },
     {
+        "tris203/precognition.nvim",
+        lazy = false,
+        opts = {},
+    },
+    {
+        "m4xshen/hardtime.nvim",
+        lazy = false,
+        dependencies = { "MunifTanjim/nui.nvim" },
+        opts = {},
+    },
+    {
         "folke/which-key.nvim",
         opts = function(_, opts)
             -- Load NvChad defaults
@@ -113,7 +124,7 @@ return {
             "LazyGitFilterCurrentFile",
         },
         dependencies = {
-            "nvim-lua/plenary.nvim",
+            "https://github.com/nvim-lua/plenary.nvim",
         },
     },
 
@@ -124,11 +135,9 @@ return {
             "nvim-treesitter/nvim-treesitter",
             "nvim-mini/mini.nvim",
         },
-        opts = {
-            file_types = { "markdown", "copilot-chat" },
-        },
-        ft = { "markdown", "copilot-chat" },
+        ft = { "markdown", "copilot-chat", "codecompanion", "Avante" },
     },
+
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
@@ -139,15 +148,49 @@ return {
                 end,
             },
         },
-        opts = {
-            sources = {
-                { name = "nvim_lsp", group_index = 2 },
+        opts = function(_, opts)
+            local cmp = require("cmp")
+
+            opts.mapping = cmp.mapping.preset.insert({
+                -- Enter always inserts a newline
+                ["<CR>"] = cmp.mapping(function(fallback)
+                    fallback()
+                end, { "i", "s" }),
+
+                -- Shift-Enter confirms completion
+                ["<S-CR>"] = cmp.mapping(function(fallback)
+                    if cmp.visible() and cmp.get_selected_entry() then
+                        cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+                    else
+                        fallback()
+                    end
+                end, { "i", "s" }),
+
+                -- Tab / Shift-Tab cycle through suggestions
+                ["<Tab>"] = cmp.mapping(function(fallback)
+                    if cmp.visible() then
+                        cmp.select_next_item()
+                    else
+                        fallback()
+                    end
+                end, { "i", "s" }),
+
+                ["<S-Tab>"] = cmp.mapping(function(fallback)
+                    if cmp.visible() then
+                        cmp.select_prev_item()
+                    else
+                        fallback()
+                    end
+                end, { "i", "s" }),
+            })
+            opts.sources = cmp.config.sources({
                 { name = "copilot", group_index = 2 },
+                { name = "nvim_lsp", group_index = 2 },
                 { name = "luasnip", group_index = 2 },
                 { name = "buffer", group_index = 2 },
-                { name = "nvim_lua", group_index = 2 },
                 { name = "path", group_index = 2 },
-            },
-        },
+                { name = "nvim_lua", group_index = 2 },
+            })
+        end,
     },
 }
