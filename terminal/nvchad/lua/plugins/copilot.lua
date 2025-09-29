@@ -6,9 +6,9 @@ return {
         config = function()
             require("copilot").setup({
                 suggestion = {
-                    enabled = false,
+                    enabled = false, -- disable ghost text
                     auto_trigger = true,
-                    accept = false,
+                    accept = "<S-CR>",
                 },
                 panel = {
                     enabled = false,
@@ -19,27 +19,11 @@ return {
                     html = true,
                     javascript = true,
                     typescript = true,
+                    python = true,
                     ["*"] = true,
                 },
             })
-
-            vim.keymap.set("i", "<Tab>", function()
-                if require("copilot.suggestion").is_visible() then
-                    require("copilot.suggestion").accept()
-                else
-                    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<S-Tab>", true, false, true), "n", false)
-                end
-            end, {
-                silent = true,
-            })
         end,
-        -- event = "InsertEnter",
-        -- config = function()
-        --     require("copilot").setup({
-        --         suggestion = { enabled = false },
-        --         panel = { enabled = false },
-        --     })
-        -- end,
     },
     {
         "CopilotC-Nvim/CopilotChat.nvim",
@@ -66,7 +50,7 @@ return {
             question_header = "## User ",
             answer_header = "## Copilot ",
             error_header = "## Error ",
-            model = "claude-3.7-sonnet",
+            -- model = "gpt-4.1",
             prompts = {
                 -- Code related prompts
                 Explain = "Please explain how the following code works.",
