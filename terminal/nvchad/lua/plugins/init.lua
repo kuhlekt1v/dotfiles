@@ -1,6 +1,22 @@
 return {
     { "echasnovski/mini.icons" },
     {
+        "adelarsq/image_preview.nvim",
+        event = "VeryLazy",
+        config = function()
+            require("image_preview").setup()
+        end,
+    },
+    {
+        "nvim-tree/nvim-tree.lua",
+        config = function()
+            require("configs.nvimtree").setup()
+        end,
+        dependencies = {
+            "adelarsq/image_preview.nvim",
+        },
+    },
+    {
         "tris203/precognition.nvim",
         lazy = false,
         opts = {},
