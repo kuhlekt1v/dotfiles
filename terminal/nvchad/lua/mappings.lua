@@ -48,6 +48,8 @@ vim.keymap.set("n", "<leader>Q", "<cmd>qa!<CR>", { desc = "Force quit" })
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 
+-- NvimTree
+map("n", "<leader>EC", "<cmd>NvimTreeCollapse<CR>", { desc = "Collapse all in nvim-tree" })
 -- Cheatsheet
 map("n", "<leader>?", "<cmd>NvCheatsheet<CR>", { desc = "toggle nvcheatshet" })
 

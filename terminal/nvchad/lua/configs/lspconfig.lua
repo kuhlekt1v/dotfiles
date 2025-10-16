@@ -23,7 +23,7 @@ lspconfig.servers = {
 }
 
 -- list of servers configured with default config
-local default_servers = { "html", "cssls", "pyright", "astro", "tailwindcss" }
+local default_servers = { "html", "cssls", "pyright", "tailwindcss", "astro" }
 
 -- setup lsps with default config
 for _, lsp in ipairs(default_servers) do
@@ -43,8 +43,7 @@ lspconfig.lua_ls.setup({
     settings = {
         Lua = {
             diagnostics = {
-                enable = false, -- Disable all diagnostics from lua_ls
-                -- globals = { "vim" },
+                enable = false,
             },
             workspace = {
                 library = {
