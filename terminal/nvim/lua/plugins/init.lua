@@ -22,12 +22,6 @@ return {
         opts = {},
     },
     {
-        "m4xshen/hardtime.nvim",
-        lazy = false,
-        dependencies = { "MunifTanjim/nui.nvim" },
-        opts = {},
-    },
-    {
         "folke/which-key.nvim",
         opts = function(_, opts)
             -- Load NvChad defaults
@@ -46,24 +40,8 @@ return {
         end,
     },
     {
-        "neovim/nvim-lspconfig",
-        event = { "BufReadPre", "BufNewFile" },
-        config = function()
-            require("nvchad.configs.lspconfig").defaults()
-            require("configs.lspconfig")
-        end,
-    },
-    {
-        "williamboman/mason-lspconfig.nvim",
-        event = "VeryLazy",
-        dependencies = { "nvim-lspconfig" },
-        config = function()
-            require("configs.mason-lspconfig")
-        end,
-    },
-
-    {
         "mfussenegger/nvim-lint",
+
         event = { "BufReadPre", "BufNewFile" },
         config = function()
             require("configs.lint")
@@ -86,47 +64,55 @@ return {
             require("configs.conform")
         end,
     },
+    {
+        "mason-org/mason-lspconfig.nvim",
+        opts = {},
+        event = "VeryLazy",
+        dependencies = {
+            { "mason-org/mason.nvim", opts = {} },
+            {
+                "neovim/nvim-lspconfig",
+                config = function()
+                    require("configs.lsp")
+                end,
+            },
+        },
+    },
 
     {
-        "zapling/mason-conform.nvim",
-        event = "VeryLazy",
-        dependencies = { "conform.nvim" },
-        config = function()
-            require("configs.mason-conform")
-        end,
-    },
-    {
         "mfussenegger/nvim-dap",
-    },
-    {
-        "nvim-neotest/nvim-nio",
-    },
-    {
-        "rcarriga/nvim-dap-ui",
         dependencies = {
-            "mfussenegger/nvim-dap",
+            -- Debugger UI
+            {
+                "rcarriga/nvim-dap-ui",
+                config = function()
+                    require("configs.dap-ui")
+                end,
+            },
+            -- Required dependency of nvim-dap-ui
             "nvim-neotest/nvim-nio",
+
+            -- Shows variable values inline a virtual text
+            "theHamsta/nvim-dap-virtual-text",
+            -- Automatically installs DAP debuggers
+            -- Debuggers still need to be explicitly configured
+            {
+                "jay-babu/mason-nvim-dap.nvim",
+                config = function()
+                    require("configs.mason-dap")
+                end,
+            },
+            -- Language-specifc debuggers
+            {
+                "mfussenegger/nvim-dap-python",
+                ft = "python",
+                config = function()
+                    require("configs.dap-python")
+                end,
+            },
         },
         config = function()
-            require("configs.dap-ui")
-        end,
-    },
-    {
-        "mfussenegger/nvim-dap-python",
-        ft = "python",
-        dependencies = {
-            "mfussenegger/nvim-dap",
-            "rcarriga/nvim-dap-ui",
-        },
-        config = function()
-            require("configs.dap-python")
-        end,
-    },
-    {
-        "jay-babu/mason-nvim-dap.nvim",
-        event = "VeryLazy",
-        config = function()
-            require("configs.mason-dap")
+            require("configs.dap")
         end,
     },
     {
@@ -151,62 +137,13 @@ return {
             "nvim-treesitter/nvim-treesitter",
             "nvim-mini/mini.nvim",
         },
-        ft = { "markdown", "copilot-chat", "codecompanion", "Avante" },
+        ft = { "markdown", "copilot-chat", "codecompanion" },
     },
 
     {
         "hrsh7th/nvim-cmp",
-        dependencies = {
-            {
-                "zbirenbaum/copilot-cmp",
-                config = function()
-                    require("copilot_cmp").setup()
-                end,
-            },
-        },
-        opts = function(_, opts)
-            local cmp = require("cmp")
-
-            opts.mapping = cmp.mapping.preset.insert({
-                -- Enter always inserts a newline
-                ["<CR>"] = cmp.mapping(function(fallback)
-                    fallback()
-                end, { "i", "s" }),
-
-                -- Shift-Enter confirms completion
-                ["<S-CR>"] = cmp.mapping(function(fallback)
-                    if cmp.visible() and cmp.get_selected_entry() then
-                        cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-                    else
-                        fallback()
-                    end
-                end, { "i", "s" }),
-
-                -- Tab / Shift-Tab cycle through suggestions
-                ["<Tab>"] = cmp.mapping(function(fallback)
-                    if cmp.visible() then
-                        cmp.select_next_item()
-                    else
-                        fallback()
-                    end
-                end, { "i", "s" }),
-
-                ["<S-Tab>"] = cmp.mapping(function(fallback)
-                    if cmp.visible() then
-                        cmp.select_prev_item()
-                    else
-                        fallback()
-                    end
-                end, { "i", "s" }),
-            })
-            opts.sources = cmp.config.sources({
-                { name = "copilot", group_index = 2 },
-                { name = "nvim_lsp", group_index = 2 },
-                { name = "luasnip", group_index = 2 },
-                { name = "buffer", group_index = 2 },
-                { name = "path", group_index = 2 },
-                { name = "nvim_lua", group_index = 2 },
-            })
+        config = function()
+            require("configs.nvim-cmp").setup()
         end,
     },
 }

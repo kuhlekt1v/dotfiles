@@ -53,8 +53,9 @@ map("n", "<leader>EC", "<cmd>NvimTreeCollapse<CR>", { desc = "Collapse all in nv
 -- Cheatsheet
 map("n", "<leader>?", "<cmd>NvCheatsheet<CR>", { desc = "toggle nvcheatshet" })
 
--- DAP
-map("n", "<leader>db", "<cmd> DapToggleBreakpoint <CR>", { desc = "Toggle DAP Breakpoint" })
+map("n", "<leader>db", function()
+    require("dap").toggle_breakpoint()
+end, { desc = "Toggle DAP Breakpoint" })
 map("n", "<leader>du", "<cmd>lua require('dapui').toggle()<CR>", { desc = "Toggle DAP UI" })
 map("n", "<leader>ds", "<cmd> DapContinue <CR>", { desc = "Start or continue DAP" })
 map("n", "<leader>dr", function()
