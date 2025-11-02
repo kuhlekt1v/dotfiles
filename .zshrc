@@ -29,3 +29,6 @@ dcd() {
     return 1
   fi
 }
+
+alias lazy="lazygit"
+alias lg="lazygit"
