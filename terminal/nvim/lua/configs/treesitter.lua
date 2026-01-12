@@ -10,6 +10,8 @@ local options = {
         "vim",
         "vimdoc",
         "yaml",
+        "typescript",
+        "tsx",
     },
 
     highlight = {

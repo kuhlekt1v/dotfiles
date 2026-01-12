@@ -10,15 +10,21 @@ local function prettier_cmd()
 end
 
 local options = {
+
     formatters_by_ft = {
         lua = { "stylua" },
-        css = { "prettier" },
-        html = { "prettier" },
-        python = { "isort", "black" },
+
         javascript = { "prettier" },
         typescript = { "prettier" },
+        javascriptreact = { "prettier" },
+        typescriptreact = { "prettier" },
         astro = { "prettier" },
+        css = { "prettier" },
+        html = { "prettier" },
+
+        python = { "isort", "black" },
     },
+
     formatters = {
         -- Python
         black = {
