@@ -5,7 +5,7 @@
 ---@type ChadrcConfig
 local M = {}
 M.base46 = {
-    theme = "aylin",
+    theme = "koda", -- previously used "aylin", "ashes"
 }
 
 M.nvdash = {

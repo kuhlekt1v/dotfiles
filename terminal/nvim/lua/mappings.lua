@@ -22,7 +22,7 @@ wk.add({
 })
 
 -- Remove NvChad defaults.
-vim.keymap.del("n", "<leader>x")
+--vim.keymap.del("n", "<leader>x")
 vim.keymap.del("n", "<leader>ch")
 vim.keymap.del("n", "<leader>cm")
 vim.keymap.del("n", "<leader>fa")
@@ -144,6 +144,10 @@ end, { desc = "close others" })
 map("n", "<leader>bx", function()
     require("nvchad.tabufline").close_buffer()
 end, { desc = "close current" })
+
+map("n", "<leader>bt", function()
+    vim.o.showtabline = (vim.o.showtabline == 2) and 0 or 2
+end, { desc = "toggle" })
 
 -- Code Companion
 map("n", "<leader>cca", "<cmd>CodeCompanionActions<cr>", { desc = "CodeCompanion - Actions Palette" })
