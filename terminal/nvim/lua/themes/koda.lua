@@ -62,6 +62,21 @@ M.polish_hl = {
     },
 }
 
+-- M.override = {
+--     -- Active window only
+--     WinBar = {
+--         fg = M.base_30.black,
+--         bg = M.base_30.red,
+--         bold = true,
+--     },
+--
+--     -- Inactive windows: label only
+--     WinBarNC = {
+--         fg = M.base_16.base07,
+--         bg = "NONE",
+--     },
+-- }
+
 M.type = "dark"
 
 M = require("base46").override_theme(M, "monochrome")

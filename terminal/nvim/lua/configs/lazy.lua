@@ -1,6 +1,6 @@
 return {
     defaults = { lazy = true },
-    install = { colorscheme = { "nvchad" } },
+    -- install = { colorscheme = { "nvchad" } },
     concurrency = 10,
     git = {
         timeout = 300,

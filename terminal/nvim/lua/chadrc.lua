@@ -33,4 +33,7 @@ M.nvdash = {
     },
 }
 
+-- load your custom highlights after base46 theme
+require("custom.highlights")
+
 return M

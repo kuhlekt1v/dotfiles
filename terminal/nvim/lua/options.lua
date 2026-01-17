@@ -1,7 +1,5 @@
 require("nvchad.options")
 
--- add yours here!
-
 local o = vim.o
 
 -- Line numbers
@@ -18,8 +16,6 @@ o.breakindent = true
 o.showbreak = string.rep(" ", 3)
 o.linebreak = true
 
--- Remap for d ealing with word wrapping.
+-- Remap for dealing with word wrapping
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
--- o.cursorlineopt ='both' -- to enable cursorline!
