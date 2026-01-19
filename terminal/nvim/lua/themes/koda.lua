@@ -1,5 +1,7 @@
--- credit to original theme for existing : https://github.com/kdheepak/monochrome.nvim
+-- credit to original theme for existing :  https://github.com/kdheepak/monochrome.nvim
 -- NOTE: This is a modified version of it
+-- IMPORTANT: This theme works in combination with the oskarnurm/koda.nvim plugin
+-- The plugin provides the base theme, and this file overlays NvChad-specific customizations
 
 local M = {}
 
@@ -62,23 +64,6 @@ M.polish_hl = {
     },
 }
 
--- M.override = {
---     -- Active window only
---     WinBar = {
---         fg = M.base_30.black,
---         bg = M.base_30.red,
---         bold = true,
---     },
---
---     -- Inactive windows: label only
---     WinBarNC = {
---         fg = M.base_16.base07,
---         bg = "NONE",
---     },
--- }
-
 M.type = "dark"
-
-M = require("base46").override_theme(M, "monochrome")
 
 return M
