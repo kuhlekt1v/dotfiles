@@ -17,7 +17,6 @@ M.base_30 = {
     grey_fg = "#4c4c4c",
     grey_fg2 = "#606060",
     light_grey = "#677777",
-    -- red = "#ec8989",
     red = "#d9ba73",
     baby_pink = "#eca8a8",
     pink = "#da838b",
@@ -61,6 +60,7 @@ M.base_16 = {
 M.polish_hl = {
     treesitter = {
         ["@punctuation.bracket"] = { fg = M.base_30.red },
+        ["@function"] = { fg = M.base_30.nord_blue },
     },
 }
 
