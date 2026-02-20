@@ -66,7 +66,20 @@ M.setup = function()
     })
 
     -- Run default NvChad nvim-tree setup (if needed)
-    nvimtree.setup({})
+    nvimtree.setup({
+        filters = {
+            dotfiles = false, -- Show all dotfiles
+            git_ignored = false, -- Show git ignored files
+            custom = { -- Only hide these specific patterns
+                "^.git$", -- Hide .git directory (but show .github, .gitignore, etc)
+                "node_modules",
+            },
+        },
+        git = {
+            enable = true,
+            ignore = false, -- Show git ignored files
+        },
+    })
 end
 
 return M

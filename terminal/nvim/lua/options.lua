@@ -6,9 +6,9 @@ local o = vim.o
 o.number = true
 
 -- Indenting
-o.shiftwidth = 4
-o.tabstop = 4
-o.softtabstop = 4
+o.shiftwidth = 2
+o.tabstop = 2
+o.softtabstop = 2
 
 -- Line wrapping
 o.wrap = true

@@ -90,3 +90,6 @@ for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "java
         },
     }
 end
+
+-- Load DAP from .vscode/launch.json if exists.
+require("dap.ext.vscode").load_launchjs()
