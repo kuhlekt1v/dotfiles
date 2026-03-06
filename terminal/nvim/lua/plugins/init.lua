@@ -28,6 +28,8 @@ return {
             local smart_splits = require("smart-splits")
             smart_splits.setup({
                 default_amount = 5,
+                multiplexer_integration = true,
+                multiplexer = "wezterm",
             })
             local keymap = vim.keymap
 

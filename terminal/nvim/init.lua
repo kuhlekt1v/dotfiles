@@ -40,3 +40,15 @@ vim.api.nvim_create_autocmd("BufDelete", {
         end
     end,
 })
+
+vim.api.nvim_create_autocmd("VimEnter", {
+    callback = function()
+        vim.fn.system("wezterm cli set-user-var IS_NVIM true")
+    end,
+})
+
+vim.api.nvim_create_autocmd("VimLeavePre", {
+    callback = function()
+        vim.fn.system("wezterm cli set-user-var IS_NVIM false")
+    end,
+})
