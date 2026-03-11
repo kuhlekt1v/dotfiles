@@ -1,4 +1,20 @@
 local dap = require("dap")
+local map = vim.keymap.set
+
+-- Debug (DAP)
+map("n", "<leader>db", function()
+    require("dap").toggle_breakpoint()
+end, { desc = "Toggle breakpoint" })
+
+map("n", "<leader>dc", "<cmd>DapContinue<CR>", { desc = "Continue debug" })
+
+map("n", "<leader>du", function()
+    require("dapui").toggle()
+end, { desc = "Toggle DAP UI" })
+
+map("n", "<leader>dt", function()
+    require("dap-python").test_method()
+end, { desc = "Debug python test" })
 
 local enter_launch_url = function()
     local co = coroutine.running()

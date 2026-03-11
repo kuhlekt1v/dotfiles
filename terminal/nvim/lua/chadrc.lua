@@ -11,10 +11,10 @@ M.base46 = {
 M.nvdash = {
     load_on_startup = true,
     buttons = {
-        { txt = "  Find File", keys = "tf", cmd = "Telescope find_files" },
-        { txt = "  Recent Files", keys = "to", cmd = "Telescope oldfiles" },
-        { txt = "󰈭  Find Word", keys = "tw", cmd = "Telescope live_grep" },
-        { txt = "󱥚  Themes", keys = "th", cmd = ":lua require('nvchad.themes').open()" },
+        { txt = "  Find File", keys = "ff", cmd = "Telescope find_files" },
+        { txt = "  Recent Files", keys = "fo", cmd = "Telescope oldfiles" },
+        { txt = "󰈭  Find Word", keys = "fw", cmd = "Telescope live_grep" },
+        { txt = "󱥚  Themes", keys = "fh", cmd = ":lua require('nvchad.themes').open()" },
         { txt = "  Mappings", keys = "?", cmd = "NvCheatsheet" },
 
         { txt = "─", hl = "NvDashFooter", no_gap = true, rep = true },

@@ -1,60 +1,49 @@
 return {
     { "echasnovski/mini.icons" },
-    {
-        "adelarsq/image_preview.nvim",
-        event = "VeryLazy",
-        config = function()
-            require("image_preview").setup()
-        end,
-    },
-    {
-        "nvim-tree/nvim-tree.lua",
-        config = function()
-            require("configs.nvimtree").setup()
-        end,
-        dependencies = {
-            "adelarsq/image_preview.nvim",
-        },
-    },
+
+    -- UI / Navigation
     {
         "tris203/precognition.nvim",
         lazy = false,
         opts = {},
     },
-    {
-        "mrjones2014/smart-splits.nvim",
-        lazy = false,
-        config = function()
-            local smart_splits = require("smart-splits")
-            smart_splits.setup({
-                default_amount = 5,
-                multiplexer_integration = true,
-                multiplexer = "wezterm",
-            })
-            local keymap = vim.keymap
 
-            keymap.set("n", "<C-h>", smart_splits.move_cursor_left)
-            keymap.set("n", "<C-j>", smart_splits.move_cursor_down)
-            keymap.set("n", "<C-k>", smart_splits.move_cursor_up)
-            keymap.set("n", "<C-l>", smart_splits.move_cursor_right)
-
-            keymap.set("n", "<C-S-h>", smart_splits.resize_left)
-            keymap.set("n", "<C-S-j>", smart_splits.resize_down)
-            keymap.set("n", "<C-S-k>", smart_splits.resize_up)
-            keymap.set("n", "<C-S-l>", smart_splits.resize_right)
-        end,
-    },
     {
         "folke/which-key.nvim",
         opts = function(_, opts)
-            -- Load NvChad defaults
             dofile(vim.g.base46_cache .. "whichkey")
-            -- Extend NvChad defaults
             opts.icons = { group = "+ ", mappings = false }
             opts.sort = { "alphanum" }
             return opts
         end,
     },
+
+    -- Image preview
+    {
+        "adelarsq/image_preview.nvim",
+        event = "VeryLazy",
+        opts = {},
+    },
+
+    -- File explorer
+    {
+        "nvim-tree/nvim-tree.lua",
+        dependencies = { "adelarsq/image_preview.nvim" },
+        config = function()
+            require("configs.nvimtree").setup()
+        end,
+    },
+
+    -- Smart pane navigation (works with wezterm)
+    {
+        "mrjones2014/smart-splits.nvim",
+        lazy = false,
+        config = function()
+            require("configs.smart-splits")
+        end,
+    },
+
+    -- Treesitter
     {
         "nvim-treesitter/nvim-treesitter",
         event = { "BufReadPre", "BufNewFile" },
@@ -62,9 +51,10 @@ return {
             require("configs.treesitter")
         end,
     },
+
+    -- Linting
     {
         "mfussenegger/nvim-lint",
-
         event = { "BufReadPre", "BufNewFile" },
         config = function()
             require("configs.lint")
@@ -74,12 +64,13 @@ return {
     {
         "rshkarin/mason-nvim-lint",
         event = "VeryLazy",
-        dependencies = { "nvim-lint" },
+        dependencies = { "mfussenegger/nvim-lint" },
         config = function()
             require("configs.mason-lint")
         end,
     },
 
+    -- Formatting
     {
         "stevearc/conform.nvim",
         event = "BufWritePre",
@@ -87,10 +78,12 @@ return {
             require("configs.conform")
         end,
     },
+
+    -- LSP
     {
         "mason-org/mason-lspconfig.nvim",
+        event = "BufReadPre", -- load before buffers are read, not VeryLazy
         opts = {},
-        event = "VeryLazy",
         dependencies = {
             { "mason-org/mason.nvim", opts = {} },
             {
@@ -105,30 +98,36 @@ return {
         end,
     },
 
+    -- Debugging
     {
         "mfussenegger/nvim-dap",
+        config = function()
+            require("configs.dap")
+        end,
         dependencies = {
-            -- Debugger UI
+
+            -- UI
             {
                 "rcarriga/nvim-dap-ui",
                 config = function()
                     require("configs.dap-ui")
                 end,
             },
-            -- Required dependency of nvim-dap-ui
+
             "nvim-neotest/nvim-nio",
 
-            -- Shows variable values inline a virtual text
-            "theHamsta/nvim-dap-virtual-text",
-            -- Automatically installs DAP debuggers
-            -- Debuggers still need to be explicitly configured
+            -- virtual text
+            { "theHamsta/nvim-dap-virtual-text", opts = {} },
+
+            -- mason dap
             {
                 "jay-babu/mason-nvim-dap.nvim",
                 config = function()
                     require("configs.mason-dap")
                 end,
             },
-            -- Language-specifc debuggers
+
+            -- python dap
             {
                 "mfussenegger/nvim-dap-python",
                 ft = "python",
@@ -137,13 +136,11 @@ return {
                 end,
             },
         },
-        config = function()
-            require("configs.dap")
-        end,
     },
+
+    -- Git
     {
         "kdheepak/lazygit.nvim",
-        lazy = true,
         cmd = {
             "LazyGit",
             "LazyGitConfig",
@@ -151,34 +148,83 @@ return {
             "LazyGitFilter",
             "LazyGitFilterCurrentFile",
         },
-        dependencies = {
-            "https://github.com/nvim-lua/plenary.nvim",
-        },
+        dependencies = { "nvim-lua/plenary.nvim" },
     },
 
+    -- Markdown rendering
     {
         "MeanderingProgrammer/render-markdown.nvim",
-        lazy = true,
+        ft = {'markdown'},
+        -- ft = { "markdown", "copilot-chat" },
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
             "nvim-mini/mini.nvim",
         },
-        ft = { "markdown", "copilot-chat", "codecompanion" },
     },
 
+    -- Completion
     {
         "hrsh7th/nvim-cmp",
         config = function()
             require("configs.nvim-cmp").setup()
         end,
     },
+
+    -- Colorscheme
     {
         "oskarnurm/koda.nvim",
-        lazy = false, -- make sure we load this during startup if it is your main colorscheme
-        priority = 1000, -- make sure to load this before all the other start plugins
+        lazy = false,
+        priority = 1000,
         config = function()
-            -- require("koda").setup({ transparent = true })
             vim.cmd("colorscheme koda")
+        end,
+    },
+
+    -- Copilot Chat
+    {
+        "CopilotC-Nvim/CopilotChat.nvim",
+        branch = "main",
+
+        cmd = {
+            "CopilotChat",
+            "CopilotChatExplain",
+            "CopilotChatTests",
+            "CopilotChatReview",
+            "CopilotChatRefactor",
+            "CopilotChatFixError",
+            "CopilotChatBetterNamings",
+            "CopilotChatCommit",
+            "CopilotChatReset",
+            "CopilotChatToggle",
+            "CopilotChatModels",
+            "CopilotChatAgents",
+        },
+
+        keys = {
+            { "<leader>acp", desc = "Prompt actions" },
+            { "<leader>ace", "<cmd>CopilotChatExplain<cr>", desc = "Explain code" },
+            { "<leader>act", "<cmd>CopilotChatTests<cr>", desc = "Generate tests" },
+            { "<leader>acr", "<cmd>CopilotChatReview<cr>", desc = "Review code" },
+            { "<leader>acR", "<cmd>CopilotChatRefactor<cr>", desc = "Refactor code" },
+            { "<leader>acn", "<cmd>CopilotChatBetterNamings<cr>", desc = "Better naming" },
+            { "<leader>acf", "<cmd>CopilotChatFixError<cr>", desc = "Fix diagnostic" },
+            { "<leader>acm", "<cmd>CopilotChatCommit<cr>", desc = "Generate commit message" },
+            { "<leader>acl", "<cmd>CopilotChatReset<cr>", desc = "Clear chat history" },
+            { "<leader>acv", "<cmd>CopilotChatToggle<cr>", desc = "Toggle chat" },
+            { "<leader>ac?", "<cmd>CopilotChatModels<cr>", desc = "Select model" },
+            { "<leader>aca", "<cmd>CopilotChatAgents<cr>", desc = "Select agent" },
+        },
+
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            {
+                "nvim-treesitter/nvim-treesitter",
+                opts = { ensure_installed = { "diff", "markdown" } },
+            },
+        },
+
+        config = function()
+            require("configs.copilot").setup()
         end,
     },
 }

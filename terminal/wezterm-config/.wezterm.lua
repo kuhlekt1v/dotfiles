@@ -1,5 +1,6 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
+local use_lua_colors = false
 local mux = wezterm.mux
 
 local config = {}
@@ -27,12 +28,20 @@ config.window_padding = {
 config.animation_fps = 1
 config.font_size = 18
 
+-- Choose lua or toml color scheme
+if use_lua_colors then
+	config.colors = require("colors.koda-dark")
+else
+	config.color_scheme_dirs = { wezterm.config_dir .. "/colors" }
+	config.color_scheme = "jellybeans-dark"
+end
+
 -- Leader key (tmux style)
 config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 2000 }
 
 -- Pane navigation
 config.keys = {
-	{ key = "c", mods = "CTRL", action = act.SendString("\x0c") },
+
 	{ key = "h", mods = "CTRL", action = act.ActivatePaneDirection("Left") },
 	{ key = "j", mods = "CTRL", action = act.ActivatePaneDirection("Down") },
 	{ key = "k", mods = "CTRL", action = act.ActivatePaneDirection("Up") },
@@ -43,8 +52,8 @@ config.keys = {
 	{ key = "k", mods = "CTRL|SHIFT", action = act.AdjustPaneSize({ "Up", 5 }) },
 	{ key = "l", mods = "CTRL|SHIFT", action = act.AdjustPaneSize({ "Right", 5 }) },
 
-	{ key = "\\", mods = "LEADER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-	{ key = "-", mods = "LEADER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+	{ key = "v", mods = "LEADER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+	{ key = "s", mods = "LEADER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
 
 	{ key = "m", mods = "LEADER", action = act.TogglePaneZoomState },
 	{ key = "c", mods = "LEADER", action = act.SpawnTab("CurrentPaneDomain") },
@@ -56,6 +65,8 @@ config.keys = {
 	{ key = "n", mods = "LEADER", action = act.ActivateTabRelative(1) },
 
 	{ key = "r", mods = "ALT", action = act.ReloadConfiguration },
+	{ key = "f", mods = "CMD|SHIFT", action = wezterm.action.ToggleFullScreen },
+	{ key = "c", mods = "CMD|SHIFT", action = act.SendString("\x0c") },
 }
 
 return config
