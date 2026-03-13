@@ -5,7 +5,7 @@
 ---@type ChadrcConfig
 local M = {}
 M.base46 = {
-    theme = "koda", -- previously used "aylin", "ashes"
+    theme = "nordic", -- previously used "aylin", "ashes"
 }
 
 M.nvdash = {
@@ -34,6 +34,16 @@ M.nvdash = {
 }
 
 -- load your custom highlights after base46 theme
-require("custom.highlights")
+--require("custom.highlights")
+
+
+M.ui = {
+  hl_override = require("custom.highlights"),
+  statusline = {
+    theme = "default",
+    separator_style = "round"
+  }
+}
+
 
 return M

@@ -9,6 +9,18 @@ return {
     },
 
     {
+        "nvchad/base46",
+        lazy = true,
+        build = function()
+            require("base46").load_all_highlights()
+        end,
+        -- Add this:
+        config = function()
+            require("base46").load_all_highlights()
+        end,
+    },
+
+    {
         "folke/which-key.nvim",
         opts = function(_, opts)
             dofile(vim.g.base46_cache .. "whichkey")
@@ -154,7 +166,7 @@ return {
     -- Markdown rendering
     {
         "MeanderingProgrammer/render-markdown.nvim",
-        ft = {'markdown'},
+        ft = { "markdown" },
         -- ft = { "markdown", "copilot-chat" },
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
@@ -171,14 +183,14 @@ return {
     },
 
     -- Colorscheme
-    {
-        "oskarnurm/koda.nvim",
-        lazy = false,
-        priority = 1000,
-        config = function()
-            vim.cmd("colorscheme koda")
-        end,
-    },
+    -- {
+    --     "oskarnurm/koda.nvim",
+    --     lazy = false,
+    --     priority = 1000,
+    --     config = function()
+    --         vim.cmd("colorscheme koda")
+    --     end,
+    -- },
 
     -- Copilot Chat
     {

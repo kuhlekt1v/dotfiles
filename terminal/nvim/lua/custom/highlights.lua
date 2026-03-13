@@ -2,12 +2,14 @@ vim.o.winbar = "%=%f%m"
 
 -- Active window winbar
 vim.api.nvim_set_hl(0, "WinBar", {
-    fg = "#d9ba73",
+    fg = "#EBCB8B",
     bg = "NONE",
 })
 
 -- Inactive window winbar
 vim.api.nvim_set_hl(0, "WinBarNC", {
-    fg = "#606060", -- light grey
+    fg = "#434C5E",
     bg = "NONE",
 })
+
+vim.api.nvim_set_hl(0, "Normal", { bg = "#252933"}) 

@@ -1,6 +1,6 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
-local use_lua_colors = false
+local use_lua_colors = true 
 local mux = wezterm.mux
 
 local config = {}
@@ -30,7 +30,7 @@ config.font_size = 18
 
 -- Choose lua or toml color scheme
 if use_lua_colors then
-	config.colors = require("colors.koda-dark")
+	config.colors = require("colors.nordic")
 else
 	config.color_scheme_dirs = { wezterm.config_dir .. "/colors" }
 	config.color_scheme = "jellybeans-dark"
