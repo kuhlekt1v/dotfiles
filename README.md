@@ -27,6 +27,8 @@ Personal configuration files for various development tools including themes, key
 <br>
   
 1. Copy [Neovim](https://github.com/kuhlekt1v/dotfiles/tree/main/terminal/nvim) config to `~/.config/nvim`
+2. Install CSharpier for C# formatting:
+   `dotnet tool install -g csharpier`
   
 </details>
 

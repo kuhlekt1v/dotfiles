@@ -14,6 +14,7 @@ mason_lspconfig.setup({
         "tailwindcss",
         "lua_ls",
         "pyright",
+        "omnisharp"
     },
 })
 
@@ -79,8 +80,18 @@ vim.lsp.config("pyright", {
     capabilities = capabilities,
 })
 
+-- Configure OmniSharp for C#
+vim.lsp.config("omnisharp", {
+    cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+    filetypes = { "cs" },
+    root_markers = { ".git", "*.sln", "*.csproj" },
+    capabilities = capabilities,
+
+})
+
 -- Enable servers for appropriate filetypes
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("tailwindcss")
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("pyright")
+vim.lsp.enable("omnisharp")

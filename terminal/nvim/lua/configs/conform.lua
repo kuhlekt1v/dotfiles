@@ -25,6 +25,8 @@ function M.setup()
             html = { "prettier" },
 
             python = { "isort", "black" },
+
+            cs = {"csharpier"},
         },
 
         formatters = {

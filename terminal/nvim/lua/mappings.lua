@@ -12,6 +12,7 @@ wk.add({
     { "<leader>ac", group = "copilot" },
     { "<leader>b", group = "buffers" },
     { "<leader>d", group = "debug" },
+    { "<leader>dd", group = "dap" },
     { "<leader>e", group = "tree" },
     { "<leader>f", group = "file" },
     { "<leader>g", group = "goto" },
@@ -34,6 +35,7 @@ vim.keymap.del("n", "<leader>rn")
 map("n", ";", ":", { desc = "command mode" })
 map("i", "jk", "<ESC>")
 map("n", "<leader>Q", "<cmd>qa!<CR>", { desc = "force quit" })
+
 
 -- File
 map("n", "<leader>fs", "<cmd>w<CR>", { desc = "save file" })
@@ -80,6 +82,12 @@ end, { desc = "Close current buffer" })
 map("n", "<leader>bt", function()
     vim.o.showtabline = (vim.o.showtabline == 2) and 0 or 2
 end, { desc = "Toggle tabline" })
+
+-- DAP
+map("n", "<leader>ddb", function() require("dap").toggle_breakpoint() end, { desc = "Toggle breakpoint" })
+map("n", "<leader>ddc", "<cmd>DapContinue<CR>", { desc = "Continue debug" })
+map("n", "<leader>ddu", function() require("dapui").toggle() end, { desc = "Toggle DAP UI" })
+map("n", "<leader>ddt", function() require("dap-python").test_method() end, { desc = "Debug python test" })
 
 -- Misc
 
