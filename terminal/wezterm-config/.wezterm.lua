@@ -65,8 +65,11 @@ config.keys = {
 	{ key = "n", mods = "LEADER", action = act.ActivateTabRelative(1) },
 
 	{ key = "r", mods = "ALT", action = act.ReloadConfiguration },
-	{ key = "f", mods = "CMD|SHIFT", action = wezterm.action.ToggleFullScreen },
-	{ key = "c", mods = "CMD|SHIFT", action = act.SendString("\x0c") },
 }
+
+if not wezterm.target_triple:find("windows") then
+	table.insert(config.keys, { key = "f", mods = "CMD|SHIFT", action = wezterm.action.ToggleFullScreen })
+	table.insert(config.keys, { key = "c", mods = "CMD|SHIFT", action = act.SendString("\x0c") })
+end
 
 return config
