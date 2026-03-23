@@ -85,9 +85,9 @@ return {
     -- Formatting
     {
         "stevearc/conform.nvim",
-        event = "BufWritePre",
+        event = {"BufReadPre", "BufNewFile"},
         config = function()
-            require("configs.conform")
+            require("configs.conform").setup()
         end,
     },
 
