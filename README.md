@@ -65,3 +65,6 @@ curl -s https://raw.githubusercontent.com/kuhlekt1v/dotfiles/main/vscode/install
 3. Copy & paste [settings](https://raw.githubusercontent.com/kuhlekt1v/dotfiles/main/vscode/settings.json) into VS Code `settings.json`
 
 </details>
+
+## Project Docs
+The [project-docs](https://github.com/kuhlekt1v/dotfiles/tree/main/project-docs) directory contains documentation and configuration examples for various project setups (e.g., ESLint, Prettier, Vite, React).
