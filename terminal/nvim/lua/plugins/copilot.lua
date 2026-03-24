@@ -1,31 +1,5 @@
 return {
-    -- {
-    --     "zbirenbaum/copilot.lua",
-    --     cmd = "Copilot",
-    --     event = "VeryLazy",
-    --     config = function()
-    --         require("copilot").setup({
-    --             suggestion = {
-    --                 enabled = false, -- disable ghost text
-    --                 auto_trigger = true,
-    --                 accept = "<S-CR>",
-    --             },
-    --             panel = {
-    --                 enabled = false,
-    --             },
-    --             filetypes = {
-    --                 markdown = true,
-    --                 help = true,
-    --                 html = true,
-    --                 javascript = true,
-    --                 typescript = true,
-    --                 python = true,
-    --                 ["*"] = true,
-    --             },
-    --         })
-    --     end,
-    -- },
-    {
+   {
         "CopilotC-Nvim/CopilotChat.nvim",
         branch = "main",
         dependencies = {

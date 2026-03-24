@@ -2,11 +2,11 @@ return {
     { "echasnovski/mini.icons" },
 
     -- UI / Navigation
-    {
-        "tris203/precognition.nvim",
-        lazy = false,
-        opts = {},
-    },
+    -- {
+    --     "tris203/precognition.nvim",
+    --     lazy = false,
+    --     opts = {},
+    -- },
 
     {
         "nvchad/base46",
