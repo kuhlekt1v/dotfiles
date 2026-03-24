@@ -2,11 +2,11 @@ return {
     { "echasnovski/mini.icons" },
 
     -- UI / Navigation
-    -- {
-    --     "tris203/precognition.nvim",
-    --     lazy = false,
-    --     opts = {},
-    -- },
+    {
+        "tris203/precognition.nvim",
+        lazy = false,
+        opts = {},
+    },
 
     {
         "nvchad/base46",
@@ -83,7 +83,7 @@ return {
     },
 
     -- Formatting
-    {
+     {
         "stevearc/conform.nvim",
         event = {"BufReadPre", "BufNewFile"},
         config = function()

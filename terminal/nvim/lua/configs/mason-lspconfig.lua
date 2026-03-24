@@ -14,7 +14,8 @@ mason_lspconfig.setup({
         "tailwindcss",
         "lua_ls",
         "pyright",
-        "omnisharp"
+        "omnisharp",
+        "eslint",
     },
 })
 
@@ -29,7 +30,11 @@ vim.lsp.config("ts_ls", {
     },
     root_markers = { "package.json", "tsconfig.json", "jsconfig.json", ".git" },
     capabilities = capabilities,
+    on_attach = function(client)
+        client.server_capabilities.documentFormattingProvider = false
+    end,
 })
+
 
 -- Configure Tailwind (only in projects with tailwind config)
 vim.lsp.config("tailwindcss", {
@@ -86,7 +91,17 @@ vim.lsp.config("omnisharp", {
     filetypes = { "cs" },
     root_markers = { ".git", "*.sln", "*.csproj" },
     capabilities = capabilities,
+})
 
+vim.lsp.config("eslint", {
+    cmd = { "vscode-eslint-language-server", "--stdio" },
+    filetypes = {
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+    },
+    root_markers = { ".eslintrc", ".eslintrc.js", "package.json", ".git" },
 })
 
 -- Enable servers for appropriate filetypes
@@ -95,3 +110,4 @@ vim.lsp.enable("tailwindcss")
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("pyright")
 vim.lsp.enable("omnisharp")
+vim.lsp.enable("eslint")
