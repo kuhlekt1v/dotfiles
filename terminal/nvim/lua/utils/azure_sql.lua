@@ -49,18 +49,21 @@ end
 
 -- Find a project env file (checks cwd)
 M.load_project_env = function()
-    local candidates = { ".env.azure_sql", ".env" }
-    local cwd = vim.fn.getcwd()
-
-    for _, name in ipairs(candidates) do
-        local p = cwd .. "/" .. name
-        if M.load_env_file(p) then
-            print("[Azure SQL] Loaded env: " .. p)
-            return true
-        end
+    -- Default to .nvimenv; allow override via env var
+    local envfile = vim.env.NVIM_ENV_FILE
+    if not envfile or envfile == "" then
+        envfile = ".nvenv"
     end
 
-    print("[Azure SQL] No project env file found (.env.azure_sql or .env) in " .. cwd)
+    local cwd = vim.fn.getcwd()
+    local p = cwd .. "/" .. envfile
+
+    if M.load_env_file(p) then
+        print("[Azure SQL] Loaded env: " .. p)
+        return true
+    end
+
+    print("[Azure SQL] No project env file found (" .. envfile .. ") in " .. cwd)
     return false
 end
 
