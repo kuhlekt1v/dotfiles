@@ -7,6 +7,12 @@ M.setup = function()
         return
     end
 
+    -- Global keymap
+    vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", {
+        desc = "Focus nvim-tree",
+        silent = true,
+    })
+
     local api = require("nvim-tree.api")
     local image_preview = require("image_preview")
 

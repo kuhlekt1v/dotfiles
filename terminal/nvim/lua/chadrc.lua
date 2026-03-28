@@ -5,16 +5,16 @@
 ---@type ChadrcConfig
 local M = {}
 M.base46 = {
-    theme = "koda", -- previously used "aylin", "ashes"
+    theme = "nordic", -- previously used "aylin", "ashes"
 }
 
 M.nvdash = {
     load_on_startup = true,
     buttons = {
-        { txt = "  Find File", keys = "tf", cmd = "Telescope find_files" },
-        { txt = "  Recent Files", keys = "to", cmd = "Telescope oldfiles" },
-        { txt = "󰈭  Find Word", keys = "tw", cmd = "Telescope live_grep" },
-        { txt = "󱥚  Themes", keys = "th", cmd = ":lua require('nvchad.themes').open()" },
+        { txt = "  Find File", keys = "ff", cmd = "Telescope find_files" },
+        { txt = "  Recent Files", keys = "fo", cmd = "Telescope oldfiles" },
+        { txt = "󰈭  Find Word", keys = "fw", cmd = "Telescope live_grep" },
+        { txt = "󱥚  Themes", keys = "fh", cmd = ":lua require('nvchad.themes').open()" },
         { txt = "  Mappings", keys = "?", cmd = "NvCheatsheet" },
 
         { txt = "─", hl = "NvDashFooter", no_gap = true, rep = true },
@@ -34,6 +34,16 @@ M.nvdash = {
 }
 
 -- load your custom highlights after base46 theme
-require("custom.highlights")
+--require("custom.highlights")
+
+
+M.ui = {
+  hl_override = require("custom.highlights"),
+  statusline = {
+    theme = "default",
+    separator_style = "round"
+  }
+}
+
 
 return M
