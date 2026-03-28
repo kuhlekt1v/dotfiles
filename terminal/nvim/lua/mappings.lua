@@ -3,6 +3,7 @@ require("nvchad.mappings")
 
 local map = vim.keymap.set
 local wk = require("which-key")
+local azure = require("utils.azure_sql")
 
 -- Which-key groups
 wk.add({
@@ -11,8 +12,9 @@ wk.add({
     { "<leader>a", group = "ai" },
     { "<leader>ac", group = "copilot" },
     { "<leader>b", group = "buffers" },
-    { "<leader>d", group = "debug" },
+    { "<leader>d", group = "debug & db" },
     { "<leader>dd", group = "dap" },
+    { "<leader>db", group = "db" },
     { "<leader>e", group = "tree" },
     { "<leader>f", group = "file" },
     { "<leader>g", group = "goto" },
@@ -36,7 +38,6 @@ map("n", ";", ":", { desc = "command mode" })
 map("i", "jk", "<ESC>")
 map("n", "<leader>Q", "<cmd>qa!<CR>", { desc = "force quit" })
 
-
 -- File
 map("n", "<leader>fs", "<cmd>w<CR>", { desc = "save file" })
 
@@ -51,7 +52,7 @@ map("n", "<leader>z", "<cmd>LazyGit<CR>", { desc = "lazy" })
 map("n", "<leader>tm", "<cmd>Telescope marks<CR>", { desc = "telescope find marks" })
 map("n", "<leader>tp", "<cmd>Telescope terms<CR>", { desc = "telescope pick hidden term" })
 map("n", "<leader>th", function()
-  require("nvchad.themes").open()
+    require("nvchad.themes").open()
 end, { desc = "telescope nvchad themes" })
 
 -- Tabs
@@ -84,10 +85,25 @@ map("n", "<leader>bt", function()
 end, { desc = "Toggle tabline" })
 
 -- DAP
-map("n", "<leader>ddb", function() require("dap").toggle_breakpoint() end, { desc = "Toggle breakpoint" })
+map("n", "<leader>ddb", function()
+    require("dap").toggle_breakpoint()
+end, { desc = "Toggle breakpoint" })
 map("n", "<leader>ddc", "<cmd>DapContinue<CR>", { desc = "Continue debug" })
-map("n", "<leader>ddu", function() require("dapui").toggle() end, { desc = "Toggle DAP UI" })
-map("n", "<leader>ddt", function() require("dap-python").test_method() end, { desc = "Debug python test" })
+map("n", "<leader>ddu", function()
+    require("dapui").toggle()
+end, { desc = "Toggle DAP UI" })
+map("n", "<leader>ddt", function()
+    require("dap-python").test_method()
+end, { desc = "Debug python test" })
+
+-- DB
+map("n", "<leader>dbt", "<cmd>DBUIToggle<CR>", { desc = "Toggle DB UI" })
+map("n", "<leader>dbo", "<cmd>DBUI<CR>", { desc = "Open DB UI" })
+map("n", "<leader>dbc", "<cmd>DBUIAddConnection<CR>", { desc = "Add DB connection" })
+map("n", "<leader>dbf", "<cmd>DBUIFindBuffer<CR>", { desc = "Find Buffer in DB UI" })
+map("n", "<leader>dba", function()
+    azure.connect({ open_ui = true })
+end, { desc = "Connect to AzureSQL DB" })
 
 -- Misc
 
