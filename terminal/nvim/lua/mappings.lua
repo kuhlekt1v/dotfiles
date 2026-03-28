@@ -3,6 +3,7 @@ require("nvchad.mappings")
 
 local map = vim.keymap.set
 local wk = require("which-key")
+local dbui = require("utils.dbui")
 local azure = require("utils.azure_sql")
 
 -- Which-key groups
@@ -97,7 +98,7 @@ map("n", "<leader>ddt", function()
 end, { desc = "Debug python test" })
 
 -- DB
-map("n", "<leader>dbt", "<cmd>DBUIToggle<CR>", { desc = "Toggle DB UI" })
+map("n", "<leader>dbt", dbui.toggle, { desc = "Toggle DB UI" })
 map("n", "<leader>dbo", "<cmd>DBUI<CR>", { desc = "Open DB UI" })
 map("n", "<leader>dbc", "<cmd>DBUIAddConnection<CR>", { desc = "Add DB connection" })
 map("n", "<leader>dbf", "<cmd>DBUIFindBuffer<CR>", { desc = "Find Buffer in DB UI" })
