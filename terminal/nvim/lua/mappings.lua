@@ -4,7 +4,7 @@ require("nvchad.mappings")
 local map = vim.keymap.set
 local wk = require("which-key")
 local dbui = require("utils.dbui")
-local azure = require("utils.azure_sql")
+local buffers = require("utils.buffers")
 
 -- Which-key groups
 wk.add({
@@ -65,17 +65,7 @@ map("n", "<leader><Tab>[", "<cmd>tabprevious<CR>", { desc = "previous tab" })
 -- Buffers
 map("n", "<leader>bn", "<cmd>enew<CR>", { desc = "New buffer" })
 
-map("n", "<leader>bo", function()
-    local current = vim.api.nvim_get_current_buf()
-    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-        if buf ~= current and vim.api.nvim_buf_is_loaded(buf) then
-            local bt = vim.api.nvim_get_option_value("buftype", { buf = buf })
-            if bt == "" then
-                vim.api.nvim_buf_delete(buf, { force = true })
-            end
-        end
-    end
-end, { desc = "Close other buffers" })
+map("n", "<leader>bo", function() buffers.close_other_buffers() end, { desc = "Close other buffers" })
 
 map("n", "<leader>bx", function()
     require("nvchad.tabufline").close_buffer()
@@ -100,12 +90,9 @@ end, { desc = "Debug python test" })
 -- DB
 map("n", "<leader>dbt", dbui.toggle, { desc = "Toggle DB UI" })
 map("n", "<leader>dbo", "<cmd>DBUI<CR>", { desc = "Open DB UI" })
-map("n", "<leader>dbc", "<cmd>DBUIAddConnection<CR>", { desc = "Add DB connection" })
+map("n", "<leader>dba", "<cmd>DBUIAddConnection<CR>", { desc = "Add DB connection" })
 map("n", "<leader>dbf", "<cmd>DBUIFindBuffer<CR>", { desc = "Find Buffer in DB UI" })
-map("n", "<leader>dba", function()
-    azure.connect({ open_ui = true })
-end, { desc = "Connect to AzureSQL DB" })
+map("n", "<leader>dbl", function() dbui.load_local_connections() end, { desc = "Load DB from env" })
 
 -- Misc
-
 map("n", "<leader>?", "<cmd>NvCheatsheet<CR>", { desc = "NvChad cheatsheet" })
