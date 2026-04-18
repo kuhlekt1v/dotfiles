@@ -1,11 +1,5 @@
 local dap = require("dap")
-require("dap-python").setup("./.venv/bin/python") -- fallback, per-project can override
-
--- look for a project-local dap config
--- local project_dap = vim.fn.getcwd() .. "/.nvim/dap.lua"
--- if vim.fn.filereadable(project_dap) == 1 then
---     dofile(project_dap)
--- end
+require("dap-python").setup("./.venv/bin/python")
 
 dap.adapters.python = {
     type = "server",
@@ -13,27 +7,6 @@ dap.adapters.python = {
     port = 5678,
 }
 
---
--- To start Python az func
--- export FUNCTIONS_WORKER_PROCESS_COUNT=1
--- export languageWorkers__python__arguments="-m debugpy --listen 5678 --wait-for-client"
--- func start
---
--- Then start dap in file
---
--- OLD - BUT WORKED CORRECTLY WITH ABOVE NOTES.
--- dap.configurations.python = {
---     {
---         type = "python",
---         request = "attach",
---         name = "Attach Azure Functions",
---         connect = {
---             host = "127.0.0.1",
---             port = 5678,
---         },
---         justMyCode = false,
---     },
--- }
 -- --- helper: wait for debugpy port ---
 local function wait_for_port(port, timeout_ms)
   local uv = vim.loop
@@ -119,3 +92,4 @@ dap.configurations.python = {
     end,
   },
 }
+
