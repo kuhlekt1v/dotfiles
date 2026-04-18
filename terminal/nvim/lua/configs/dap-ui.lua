@@ -1,7 +1,14 @@
 local dap = require("dap")
 local dapui = require("dapui")
 
-dapui.setup()
+dapui.setup({
+  expand_lines = true,
+  render = {
+    max_value_lines = 100,
+    indent = 1,
+    wrap = true
+  }
+})
 
 dap.listeners.after.attach.dapui_config = function()
     dapui.open()

@@ -33,6 +33,8 @@ vim.keymap.del("n", "<leader>cm")
 vim.keymap.del("n", "<leader>gt")
 vim.keymap.del("n", "<leader>pt")
 vim.keymap.del("n", "<leader>rn")
+vim.keymap.del("n", "<leader>h")
+vim.keymap.del("n", "<leader>v")
 
 -- Basic
 map("n", ";", ":", { desc = "command mode" })
@@ -79,13 +81,19 @@ end, { desc = "Toggle tabline" })
 map("n", "<leader>ddb", function()
     require("dap").toggle_breakpoint()
 end, { desc = "Toggle breakpoint" })
-map("n", "<leader>ddc", "<cmd>DapContinue<CR>", { desc = "Continue debug" })
+map("n", "<leader>ddc", function()
+    require("dap").continue()
+end, { desc = "Continue debug" })
 map("n", "<leader>ddu", function()
     require("dapui").toggle()
 end, { desc = "Toggle DAP UI" })
-map("n", "<leader>ddt", function()
-    require("dap-python").test_method()
-end, { desc = "Debug python test" })
+
+map("n", "<F1>", require("dap").continue)
+map("n", "<F2>", require("dap").step_into)
+map("n", "<F3>", require("dap").step_over)
+map("n", "<F4>", require("dap").step_out)
+map("n", "<F5>", require("dap").step_back)
+map("n", "<F13>", require("dap").restart)
 
 -- DB
 map("n", "<leader>dbt", dbui.toggle, { desc = "Toggle DB UI" })
@@ -96,3 +104,6 @@ map("n", "<leader>dbl", function() dbui.load_local_connections() end, { desc = "
 
 -- Misc
 map("n", "<leader>?", "<cmd>NvCheatsheet<CR>", { desc = "NvChad cheatsheet" })
+map({ "n", "t" }, "<A-->", function()
+  require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
+end, { desc = "terminal toggleable horizontal term" })
