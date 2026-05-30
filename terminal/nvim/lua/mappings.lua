@@ -3,6 +3,8 @@ require("nvchad.mappings")
 
 local map = vim.keymap.set
 local wk = require("which-key")
+local dbui = require("utils.dbui")
+local buffers = require("utils.buffers")
 
 -- Which-key groups
 wk.add({
@@ -11,8 +13,9 @@ wk.add({
     { "<leader>a", group = "ai" },
     { "<leader>ac", group = "copilot" },
     { "<leader>b", group = "buffers" },
-    { "<leader>d", group = "debug" },
+    { "<leader>d", group = "debug & db" },
     { "<leader>dd", group = "dap" },
+    { "<leader>db", group = "db" },
     { "<leader>e", group = "tree" },
     { "<leader>f", group = "file" },
     { "<leader>g", group = "goto" },
@@ -30,12 +33,13 @@ vim.keymap.del("n", "<leader>cm")
 vim.keymap.del("n", "<leader>gt")
 vim.keymap.del("n", "<leader>pt")
 vim.keymap.del("n", "<leader>rn")
+vim.keymap.del("n", "<leader>h")
+vim.keymap.del("n", "<leader>v")
 
 -- Basic
 map("n", ";", ":", { desc = "command mode" })
 map("i", "jk", "<ESC>")
 map("n", "<leader>Q", "<cmd>qa!<CR>", { desc = "force quit" })
-
 
 -- File
 map("n", "<leader>fs", "<cmd>w<CR>", { desc = "save file" })
@@ -51,7 +55,7 @@ map("n", "<leader>z", "<cmd>LazyGit<CR>", { desc = "lazy" })
 map("n", "<leader>tm", "<cmd>Telescope marks<CR>", { desc = "telescope find marks" })
 map("n", "<leader>tp", "<cmd>Telescope terms<CR>", { desc = "telescope pick hidden term" })
 map("n", "<leader>th", function()
-  require("nvchad.themes").open()
+    require("nvchad.themes").open()
 end, { desc = "telescope nvchad themes" })
 
 -- Tabs
@@ -63,17 +67,7 @@ map("n", "<leader><Tab>[", "<cmd>tabprevious<CR>", { desc = "previous tab" })
 -- Buffers
 map("n", "<leader>bn", "<cmd>enew<CR>", { desc = "New buffer" })
 
-map("n", "<leader>bo", function()
-    local current = vim.api.nvim_get_current_buf()
-    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-        if buf ~= current and vim.api.nvim_buf_is_loaded(buf) then
-            local bt = vim.api.nvim_get_option_value("buftype", { buf = buf })
-            if bt == "" then
-                vim.api.nvim_buf_delete(buf, { force = true })
-            end
-        end
-    end
-end, { desc = "Close other buffers" })
+map("n", "<leader>bo", function() buffers.close_other_buffers() end, { desc = "Close other buffers" })
 
 map("n", "<leader>bx", function()
     require("nvchad.tabufline").close_buffer()
@@ -84,11 +78,32 @@ map("n", "<leader>bt", function()
 end, { desc = "Toggle tabline" })
 
 -- DAP
-map("n", "<leader>ddb", function() require("dap").toggle_breakpoint() end, { desc = "Toggle breakpoint" })
-map("n", "<leader>ddc", "<cmd>DapContinue<CR>", { desc = "Continue debug" })
-map("n", "<leader>ddu", function() require("dapui").toggle() end, { desc = "Toggle DAP UI" })
-map("n", "<leader>ddt", function() require("dap-python").test_method() end, { desc = "Debug python test" })
+map("n", "<leader>ddb", function()
+    require("dap").toggle_breakpoint()
+end, { desc = "Toggle breakpoint" })
+map("n", "<leader>ddc", function()
+    require("dap").continue()
+end, { desc = "Continue debug" })
+map("n", "<leader>ddu", function()
+    require("dapui").toggle()
+end, { desc = "Toggle DAP UI" })
+
+map("n", "<F1>", require("dap").continue)
+map("n", "<F2>", require("dap").step_into)
+map("n", "<F3>", require("dap").step_over)
+map("n", "<F4>", require("dap").step_out)
+map("n", "<F5>", require("dap").step_back)
+map("n", "<F13>", require("dap").restart)
+
+-- DB
+map("n", "<leader>dbt", dbui.toggle, { desc = "Toggle DB UI" })
+map("n", "<leader>dbo", "<cmd>DBUI<CR>", { desc = "Open DB UI" })
+map("n", "<leader>dba", "<cmd>DBUIAddConnection<CR>", { desc = "Add DB connection" })
+map("n", "<leader>dbf", "<cmd>DBUIFindBuffer<CR>", { desc = "Find Buffer in DB UI" })
+map("n", "<leader>dbl", function() dbui.load_local_connections() end, { desc = "Load DB from env" })
 
 -- Misc
-
 map("n", "<leader>?", "<cmd>NvCheatsheet<CR>", { desc = "NvChad cheatsheet" })
+map({ "n", "t" }, "<A-->", function()
+  require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
+end, { desc = "terminal toggleable horizontal term" })

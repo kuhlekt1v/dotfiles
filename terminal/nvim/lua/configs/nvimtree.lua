@@ -73,6 +73,8 @@ M.setup = function()
 
     -- Run default NvChad nvim-tree setup (if needed)
     nvimtree.setup({
+        update_cwd = true,       -- follow current working directory
+        respect_buf_cwd = true,  -- respect tab-local (:lcd) cwd
         filters = {
             dotfiles = false, -- Show all dotfiles
             git_ignored = false, -- Show git ignored files
