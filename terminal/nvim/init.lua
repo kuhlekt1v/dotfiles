@@ -56,3 +56,5 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
         vim.fn.system("wezterm cli set-user-var IS_NVIM false")
     end,
 })
+
+vim.opt.clipboard = "unnamedplus"

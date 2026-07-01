@@ -2,9 +2,9 @@ local dap = require("dap")
 require("dap-python").setup("./.venv/bin/python")
 
 dap.adapters.python = {
-    type = "server",
-    host = "127.0.0.1",
-    port = 5678,
+  type = "server",
+  host = "127.0.0.1",
+  port = 5678,
 }
 
 -- --- helper: wait for debugpy port ---
@@ -68,7 +68,7 @@ dap.configurations.python = {
         "pkill -f 'func start' || true",
 
         -- your environment setup
-        "pyenv shell 3.11",
+        "pyenv shell 3.12",
         "source .venv/bin/activate",
         "export FUNCTIONS_WORKER_PROCESS_COUNT=1",
         "export languageWorkers__python__arguments='-m debugpy --listen 5678 --wait-for-client'",
@@ -91,5 +91,41 @@ dap.configurations.python = {
       end
     end,
   },
-}
+  {
+    type = "python",
+    request = "attach",
+    name = "Python Module",
 
+    connect = {
+      host = "127.0.0.1",
+      port = 5678,
+    },
+
+    justMyCode = false,
+
+    before = function()
+      open_or_reuse_terminal()
+
+      local module = vim.fn.input("Module: ")
+
+      local cmd = table.concat({
+        "pkill -f debugpy || true",
+        "source .venv/bin/activate",
+        string.format(
+          "python -m debugpy --listen 5678 --wait-for-client -m %s",
+          module
+        ),
+      }, " && ")
+
+      vim.fn.chansend(vim.b.terminal_job_id, cmd .. "\n")
+
+      vim.cmd("wincmd p")
+
+      local ok = wait_for_port(5678, 10000)
+
+      if not ok then
+        vim.notify("debugpy did not start in time", vim.log.levels.ERROR)
+      end
+    end,
+  },
+}

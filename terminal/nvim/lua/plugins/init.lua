@@ -2,11 +2,11 @@ return {
     { "echasnovski/mini.icons" },
 
     -- UI / Navigation
-    {
-        "tris203/precognition.nvim",
-        lazy = false,
-        opts = {},
-    },
+    -- {
+    --     "tris203/precognition.nvim",
+    --     lazy = false,
+    --     opts = {},
+    -- },
 
     {
         "nvchad/base46",
@@ -58,6 +58,7 @@ return {
     -- Treesitter
     {
         "nvim-treesitter/nvim-treesitter",
+        branch = "master",
         event = { "BufReadPre", "BufNewFile" },
         config = function()
             require("configs.treesitter")
