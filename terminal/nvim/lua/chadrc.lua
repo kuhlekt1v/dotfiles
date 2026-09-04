@@ -6,10 +6,26 @@
 local M = {}
 M.base46 = {
     theme = "nordic", -- previously used "aylin", "ashes"
+    integrations = { "tiny-inline-diagnostic" },
 }
 
 M.nvdash = {
     load_on_startup = true,
+    header = {
+      [[
+                      ]],
+      [[  ▄▄         ▄ ▄▄▄▄▄▄▄]],
+      [[▄▀███▄     ▄██ █████▀ ]],
+      [[██▄▀███▄   ███        ]],
+      [[███  ▀███▄ ███        ]],
+      [[███    ▀██ ███        ]],
+      [[███      ▀ ███        ]],
+      [[▀██ █████▄▀█▀▄██████▄ ]],
+      [[  ▀ ▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀]],
+      [[                      ]],
+      [[   Powered By Caffeine ]],
+      [[                      ]],
+    },
     buttons = {
         { txt = "  Find File", keys = "ff", cmd = "Telescope find_files" },
         { txt = "  Recent Files", keys = "fo", cmd = "Telescope oldfiles" },

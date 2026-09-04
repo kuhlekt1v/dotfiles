@@ -24,7 +24,7 @@ M.base_30 = {
     red = "#BF616A",
     baby_pink = "#C5727A",
     line = "#2E3440",
-    pink = "#B74E58",
+    pink = "#FAA0C5",
 
     green = "#A3BE8C",
     vibrant_green = "#B1C89D",
@@ -93,6 +93,16 @@ M.polish_hl = {
     treesitter = {
         ["@punctuation.bracket"] = { fg = M.base_30.white },
         ["@punctuation.delimiter"] = { fg = M.base_30.white },
+    },
+    defaults = {
+        WinBar = {
+            fg = M.base_30.pink,
+            bg = "NONE",
+        },
+        WinBarNC = {
+            fg = M.base_30.grey,
+            bg = "NONE",
+        },
     },
 }
 

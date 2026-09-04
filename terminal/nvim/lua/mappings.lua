@@ -9,9 +9,8 @@ local buffers = require("utils.buffers")
 -- Which-key groups
 wk.add({
     { "<leader><Tab>", group = "tab" },
-
     { "<leader>a", group = "ai" },
-    { "<leader>ac", group = "copilot" },
+    { "<leader>ac", group = "code-companion" },
     { "<leader>b", group = "buffers" },
     { "<leader>d", group = "debug & db" },
     { "<leader>dd", group = "dap" },
@@ -26,6 +25,7 @@ wk.add({
     { "<leader>t", group = "telescope" },
     { "<leader>w", group = "which-key" },
     { "<leader>z", group = "lazygit" },
+    {"<leader>gh", desc = "TypeScript expandable hover" },
 })
 
 vim.keymap.del("n", "<leader>ch")
@@ -65,13 +65,17 @@ map("n", "<leader><Tab>]", "<cmd>tabnext<CR>", { desc = "next tab" })
 map("n", "<leader><Tab>[", "<cmd>tabprevious<CR>", { desc = "previous tab" })
 
 -- Buffers
-map("n", "<leader>bn", "<cmd>enew<CR>", { desc = "New buffer" })
-
-map("n", "<leader>bo", function() buffers.close_other_buffers() end, { desc = "Close other buffers" })
-
 map("n", "<leader>bx", function()
     require("nvchad.tabufline").close_buffer()
 end, { desc = "Close current buffer" })
+map("n", "<leader>ba", function()
+    buffers.close_all_buffers()
+end, { desc = "Close all buffers" })
+map("n", "<leader>bn", "<cmd>enew<CR>", { desc = "New buffer" })
+map("n", "<leader>bo", function() buffers.close_other_buffers() end, { desc = "Close other buffers" })
+
+map("n", "<leader>bo", function() buffers.close_other_buffers() end, { desc = "Close other buffers" })
+
 
 map("n", "<leader>bt", function()
     vim.o.showtabline = (vim.o.showtabline == 2) and 0 or 2
@@ -87,6 +91,9 @@ end, { desc = "Continue debug" })
 map("n", "<leader>ddu", function()
     require("dapui").toggle()
 end, { desc = "Toggle DAP UI" })
+map("n", "<leader>ddp", function()
+    require("dap").repl.toggle()
+end, { desc = "Toggle DAP Repl" })
 map("n", "<leader>ddr", function()
   require("dap").run_to_cursor()
 end, { desc = "Run to cursor" })
@@ -96,6 +103,8 @@ end, { desc = "Stop debugging" })
 map("n", "<leader>dde", function()
   require("dapui").eval()
 end, { desc = "Eval variable under cursor" })
+
+
 
 map("n", "<F1>", require("dap").continue)
 map("n", "<F2>", require("dap").step_into)
@@ -116,3 +125,22 @@ map("n", "<leader>?", "<cmd>NvCheatsheet<CR>", { desc = "NvChad cheatsheet" })
 map({ "n", "t" }, "<A-->", function()
   require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
 end, { desc = "terminal toggleable horizontal term" })
+
+vim.keymap.set('n', '<leader>md', function()
+  vim.cmd('enew')
+  vim.bo.buftype = 'nofile'
+  vim.bo.bufhidden = 'hide'
+  vim.bo.filetype = 'markdown'
+  vim.bo[0].modifiable = true
+end, { desc = 'Markdown scratch buffer' })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "typescript", "typescriptreact" },
+  callback = function(ev)
+    map("n", "<leader>gh", require("ts_expand_hover").hover, {
+      buffer = ev.buf,
+      desc = "TypeScript expandable hover",
+    })
+  end,
+})
+

@@ -1,12 +1,19 @@
+local x
 return {
     { "echasnovski/mini.icons" },
 
-    -- UI / Navigation
-    -- {
-    --     "tris203/precognition.nvim",
-    --     lazy = false,
-    --     opts = {},
-    -- },
+    {
+      "nemanjamalesija/ts-expand-hover.nvim",
+      ft = { "typescript", "typescriptreact" },
+      opts = {
+        keymaps = {
+          hover = false,
+          expand = "]",
+          collapse = "[",
+          close = { "q", "<Esc>" },
+        },
+      },
+    },
 
     {
         "nvchad/base46",
@@ -58,8 +65,9 @@ return {
     -- Treesitter
     {
         "nvim-treesitter/nvim-treesitter",
-        branch = "master",
-        event = { "BufReadPre", "BufNewFile" },
+        branch = "main",
+        lazy = false,
+        build = ":TSUpdate",
         config = function()
             require("configs.treesitter")
         end,
@@ -95,20 +103,34 @@ return {
     -- LSP
     {
         "mason-org/mason-lspconfig.nvim",
-        event = "BufReadPre", -- load before buffers are read, not VeryLazy
-        opts = {},
+        event = {"BufReadPre", "BufNewFile"},
         dependencies = {
             { "mason-org/mason.nvim", opts = {} },
             {
                 "neovim/nvim-lspconfig",
-                config = function()
-                    require("configs.lsp")
-                end,
+                lazy = true,
             },
         },
         config = function()
+            require("configs.lsp")
             require("configs.mason-lspconfig")
         end,
+    },
+    {
+        "rachartier/tiny-inline-diagnostic.nvim",
+        event = "VeryLazy",
+        priority = 1000,
+        opts = {
+            preset = "powergate",
+            transparent_bg = true,
+
+            options = {
+                show_source = {
+                    enabled = false,
+                },
+                throttle = 0,
+            },
+        },
     },
 
     -- Debugging
@@ -202,61 +224,90 @@ return {
         end,
     },
 
-    -- Colorscheme
-    -- {
-    --     "oskarnurm/koda.nvim",
-    --     lazy = false,
-    --     priority = 1000,
-    --     config = function()
-    --         vim.cmd("colorscheme koda")
-    --     end,
-    -- },
+  {
+  "olimorris/codecompanion.nvim",
 
-    -- Copilot Chat
-    {
-        "CopilotC-Nvim/CopilotChat.nvim",
-        branch = "main",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "nvim-treesitter/nvim-treesitter",
+    "franco-ruggeri/codecompanion-spinner.nvim",
+  },
 
-        cmd = {
-            "CopilotChat",
-            "CopilotChatExplain",
-            "CopilotChatTests",
-            "CopilotChatReview",
-            "CopilotChatRefactor",
-            "CopilotChatFixError",
-            "CopilotChatBetterNamings",
-            "CopilotChatCommit",
-            "CopilotChatReset",
-            "CopilotChatToggle",
-            "CopilotChatModels",
-            "CopilotChatAgents",
+  opts = {
+    extensions = {
+      spinner = {
+          opts = {
+            text = "Thinking...",
+          },
         },
-
-        keys = {
-            { "<leader>acp", desc = "Prompt actions" },
-            { "<leader>ace", "<cmd>CopilotChatExplain<cr>", desc = "Explain code" },
-            { "<leader>act", "<cmd>CopilotChatTests<cr>", desc = "Generate tests" },
-            { "<leader>acr", "<cmd>CopilotChatReview<cr>", desc = "Review code" },
-            { "<leader>acR", "<cmd>CopilotChatRefactor<cr>", desc = "Refactor code" },
-            { "<leader>acn", "<cmd>CopilotChatBetterNamings<cr>", desc = "Better naming" },
-            { "<leader>acf", "<cmd>CopilotChatFixError<cr>", desc = "Fix diagnostic" },
-            { "<leader>acm", "<cmd>CopilotChatCommit<cr>", desc = "Generate commit message" },
-            { "<leader>acl", "<cmd>CopilotChatReset<cr>", desc = "Clear chat history" },
-            { "<leader>acv", "<cmd>CopilotChatToggle<cr>", desc = "Toggle chat" },
-            { "<leader>ac?", "<cmd>CopilotChatModels<cr>", desc = "Select model" },
-            { "<leader>aca", "<cmd>CopilotChatAgents<cr>", desc = "Select agent" },
-        },
-
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            {
-                "nvim-treesitter/nvim-treesitter",
-                opts = { ensure_installed = { "diff", "markdown" } },
-            },
-        },
-
-        config = function()
-            require("configs.copilot").setup()
-        end,
     },
+    interactions = {
+      chat = {
+        adapter = "poolside",
+      },
+      inline = {
+        adapter = "poolside",
+      },
+    },
+
+    adapters = {
+      acp = {
+        poolside = function()
+          return require("codecompanion.adapters").extend("claude_code", {
+            name = "poolside",
+            formatted_name = "Poolside",
+
+            commands = {
+              default = {
+                "pool",
+                "acp",
+              },
+            },
+          })
+        end,
+      },
+    },
+
+    opts = {
+      log_level = "DEBUG",
+    },
+
+    display = {
+      chat = {
+        show_settings = true,
+      },
+    },
+  },
+
+  keys = {
+    {
+      "<leader>acc",
+      "<cmd>CodeCompanionChat toggle<CR>",
+      desc = "Chat",
+      mode = "n",
+    },
+
+    {
+      "<leader>aca",
+      "<cmd>CodeCompanionChat add<CR>",
+      desc = "Add to Chat",
+      mode = { "n", "v" },
+    },
+
+    {
+      "<leader>aci",
+      "<cmd>CodeCompanionInline<CR>",
+      desc = "Inline",
+      mode = { "n", "v" },
+    },
+
+    {
+      "<leader>aco",
+      "<cmd>CodeCompanionActions<CR>",
+      desc = "Actions",
+      mode = "n",
+    },
+  },
+},
 }
+

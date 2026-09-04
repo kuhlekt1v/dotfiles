@@ -35,6 +35,20 @@ local function wait_for_port(port, timeout_ms)
   return false
 end
 
+local function get_python_version()
+  local handle = io.popen("./.venv/bin/python --version 2>&1")
+  if handle then
+    local result = handle:read("*a")
+    handle:close()
+    -- result is like "Python 3.11.13", extract major.minor
+    local major, minor = result:match("Python (%d+)%.(%d+)")
+    if major and minor then
+      return major .. "." .. minor
+    end
+  end
+  return nil
+end
+
 -- --- persistent terminal buffer ---
 _G.azure_func_term = _G.azure_func_term or nil
 
@@ -62,13 +76,12 @@ dap.configurations.python = {
 
     before = function()
       open_or_reuse_terminal()
+      local python_version = get_python_version()
 
       local cmd = table.concat({
         -- kill any previous func host (prevents port conflicts)
         "pkill -f 'func start' || true",
-
-        -- your environment setup
-        "pyenv shell 3.12",
+        "pyenv shell " .. python_version,
         "source .venv/bin/activate",
         "export FUNCTIONS_WORKER_PROCESS_COUNT=1",
         "export languageWorkers__python__arguments='-m debugpy --listen 5678 --wait-for-client'",
@@ -76,6 +89,8 @@ dap.configurations.python = {
         -- start azure functions
         "func start"
       }, " && ")
+
+ 
 
       -- send to terminal
       vim.fn.chansend(vim.b.terminal_job_id, cmd .. "\n")
