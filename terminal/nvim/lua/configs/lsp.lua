@@ -1,6 +1,6 @@
 -- Diagnostics display config
 vim.diagnostic.config({
-    virtual_text = true,
+    virtual_text = false,
     underline = true,
     update_in_insert = false,
     severity_sort = true,
@@ -25,50 +25,115 @@ vim.diagnostic.config({
 })
 
 -- LSP keybindings via LspAttach (works with native vim.lsp API)
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--     group = vim.api.nvim_create_augroup("UserLspKeymaps", { clear = true }),
+--     callback = function(event)
+--         local bufnr = event.buf
+--         local map = vim.keymap.set
+--
+--         -- ESLint fix on save (mirrors VSCode)
+--         if vim.lsp.get_client_by_id(event.data.client_id).name == "eslint" then
+--             vim.api.nvim_create_autocmd("BufWritePre", {
+--                 buffer = bufnr,
+--                 command = "EslintFixAll",
+--             })
+--         end
+--
+--         -- LSP navigation
+--         map("n", "<leader>gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "LSP go to declaration" })
+--         map("n", "<leader>gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "LSP go to definition" })
+--         map("n", "<leader>gi", vim.lsp.buf.implementation, { buffer = bufnr, desc = "LSP go to implementation" })
+--         map("n", "<leader>gr", vim.lsp.buf.references, { buffer = bufnr, desc = "LSP show references" })
+--         map("n", "<leader>lk", vim.lsp.buf.hover, { buffer = bufnr, desc = "LSP hover" })
+--
+--         -- LSP actions
+--         map("n", "<leader>lc", vim.lsp.buf.code_action, { buffer = bufnr, desc = "LSP code action" })
+--         map("n", "<leader>lr", vim.lsp.buf.rename, { buffer = bufnr, desc = "LSP rename" })
+--
+--         -- Diagnostics
+--         map("n", "<leader>d[", vim.diagnostic.goto_prev, { buffer = bufnr, desc = "Diagnostic previous" })
+--         map("n", "<leader>d]", vim.diagnostic.goto_next, { buffer = bufnr, desc = "Diagnostic next" })
+--         map("n", "<leader>df", vim.diagnostic.open_float, { buffer = bufnr, desc = "Diagnostic float" })
+--         map("n", "<leader>dl", vim.diagnostic.setloclist, { buffer = bufnr, desc = "Diagnostic loclist" })
+--
+--         -- Workspace management
+--         map("n", "<leader>pa", vim.lsp.buf.add_workspace_folder, { buffer = bufnr, desc = "Add workspace folder" })
+--         map(
+--             "n",
+--             "<leader>pr",
+--             vim.lsp.buf.remove_workspace_folder,
+--             { buffer = bufnr, desc = "Remove workspace folder" }
+--         )
+--         map("n", "<leader>pl", function()
+--             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+--         end, { buffer = bufnr, desc = "List workspace folders" })
+--
+--         -- Type definition
+--         map("n", "<leader>pd", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "Go to type definition" })
+--     end,
+-- })
+--
+-- LSP keymaps and behavior
 vim.api.nvim_create_autocmd("LspAttach", {
-    group = vim.api.nvim_create_augroup("UserLspKeymaps", { clear = true }),
+    group = vim.api.nvim_create_augroup("UserLsp", { clear = true }),
+
     callback = function(event)
         local bufnr = event.buf
-        local map = vim.keymap.set
+        local client = vim.lsp.get_client_by_id(event.data.client_id)
 
-        -- ESLint fix on save (mirrors VSCode)
-        if vim.lsp.get_client_by_id(event.data.client_id).name == "eslint" then
-            vim.api.nvim_create_autocmd("BufWritePre", {
+        if not client then
+            return
+        end
+
+        local map = function(mode, lhs, rhs, desc)
+            vim.keymap.set(mode, lhs, rhs, {
                 buffer = bufnr,
-                command = "EslintFixAll",
+                desc = desc,
             })
         end
 
-        -- LSP navigation
-        map("n", "<leader>gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "LSP go to declaration" })
-        map("n", "<leader>gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "LSP go to definition" })
-        map("n", "<leader>gi", vim.lsp.buf.implementation, { buffer = bufnr, desc = "LSP go to implementation" })
-        map("n", "<leader>gr", vim.lsp.buf.references, { buffer = bufnr, desc = "LSP show references" })
-        map("n", "<leader>lk", vim.lsp.buf.hover, { buffer = bufnr, desc = "LSP hover" })
+        -- Navigation
+        map("n", "<leader>gD", vim.lsp.buf.declaration, "LSP: Go to declaration")
+        map("n", "<leader>gd", vim.lsp.buf.definition, "LSP: Go to definition")
+        map("n", "<leader>gi", vim.lsp.buf.implementation, "LSP: Go to implementation")
+        map("n", "<leader>gr", vim.lsp.buf.references, "LSP: References")
+        map("n", "<leader>lk", vim.lsp.buf.hover, "LSP: Hover")
 
-        -- LSP actions
-        map("n", "<leader>lc", vim.lsp.buf.code_action, { buffer = bufnr, desc = "LSP code action" })
-        map("n", "<leader>lr", vim.lsp.buf.rename, { buffer = bufnr, desc = "LSP rename" })
+        -- Actions
+        map("n", "<leader>lc", vim.lsp.buf.code_action, "LSP: Code action")
+        map("n", "<leader>lr", vim.lsp.buf.rename, "LSP: Rename")
 
         -- Diagnostics
-        map("n", "<leader>d[", vim.diagnostic.goto_prev, { buffer = bufnr, desc = "Diagnostic previous" })
-        map("n", "<leader>d]", vim.diagnostic.goto_next, { buffer = bufnr, desc = "Diagnostic next" })
-        map("n", "<leader>df", vim.diagnostic.open_float, { buffer = bufnr, desc = "Diagnostic float" })
-        map("n", "<leader>dl", vim.diagnostic.setloclist, { buffer = bufnr, desc = "Diagnostic loclist" })
+        map("n", "<leader>d[", vim.diagnostic.goto_prev, "Diagnostic: Previous")
+        map("n", "<leader>d]", vim.diagnostic.goto_next, "Diagnostic: Next")
+        map("n", "<leader>df", vim.diagnostic.open_float, "Diagnostic: Float")
+        map("n", "<leader>dl", vim.diagnostic.setloclist, "Diagnostic: Location list")
 
-        -- Workspace management
-        map("n", "<leader>pa", vim.lsp.buf.add_workspace_folder, { buffer = bufnr, desc = "Add workspace folder" })
-        map(
-            "n",
-            "<leader>pr",
-            vim.lsp.buf.remove_workspace_folder,
-            { buffer = bufnr, desc = "Remove workspace folder" }
-        )
+        -- Workspace
+        map("n", "<leader>pa", vim.lsp.buf.add_workspace_folder, "LSP: Add workspace folder")
+        map("n", "<leader>pr", vim.lsp.buf.remove_workspace_folder, "LSP: Remove workspace folder")
+
         map("n", "<leader>pl", function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end, { buffer = bufnr, desc = "List workspace folders" })
+        end, "LSP: List workspace folders")
 
         -- Type definition
-        map("n", "<leader>pd", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "Go to type definition" })
+        map("n", "<leader>pd", vim.lsp.buf.type_definition, "LSP: Type definition")
+
+        -- ESLint
+        if client.name == "eslint" then
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                buffer = bufnr,
+                callback = function()
+                    vim.lsp.buf.code_action({
+                        context = {
+                            only = { "source.fixAll.eslint" },
+                            diagnostics = {},
+                        },
+                        apply = true,
+                    })
+                end,
+            })
+        end
     end,
 })
