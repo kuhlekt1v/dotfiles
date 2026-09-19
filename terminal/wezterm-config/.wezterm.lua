@@ -31,7 +31,7 @@ config.window_padding = {
   right = 10,
 }
 config.animation_fps = 1
-config.font_size = 13
+
 
 -- Choose lua or toml color scheme
 if use_lua_colors then
@@ -43,6 +43,7 @@ end
 
 -- WSL
 if wezterm.target_triple:find("windows") then
+  config.font_size = 13
   config.wsl_domains = {
     {
       name = "WSL:Ubuntu",
@@ -53,6 +54,7 @@ if wezterm.target_triple:find("windows") then
 
   config.default_domain = "WSL:Ubuntu"
 else
+  config.font_size = 16
   config.default_domain = "local"
 end
 
